@@ -1,5 +1,8 @@
 package elberger.maze;
 
+import java.util.Collections;
+import java.util.LinkedList;
+
 public class Cell
 {
 	private int x;
