@@ -5,18 +5,17 @@ import java.util.*;
 public class MazeModel
 {
 	private MazeController controller = new MazeController();
-	private int x = controller.maxRows();
-	private int y = controller.maxCols();
-	private int maze[][];
+	private Cell startingCell = controller.startingCell();
+	private int x;
+	private int y;
+	private String maze[][];
 	private LinkedList<Cell> visited;
-	private Queue<Cell> cells;
 
-
-	public MazeModel(int x, int y, int[][] maze)
+	public MazeModel(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.maze = maze;
+		maze = new String[x][y];
 	}
 
 	public LinkedList<Cell> findNeighbors(Cell cell)
@@ -37,17 +36,10 @@ public class MazeModel
 		return neighbors;
 	}
 
-	public void startMaze()
+	public void makePath(Cell startingCell)
 	{
-		Cell cell = controller.startingCell();
-		makePath(cell);
-	}
-
-	public void makePath(Cell cell)
-	{
-		Cell currentCell = cell;
-		cells.add(currentCell);
-		visited.add(currentCell);
+		Cell currentCell = startingCell;
+		visited.push(currentCell);
 
 		LinkedList<Cell> neighbors = findNeighbors(currentCell);
 
@@ -55,10 +47,12 @@ public class MazeModel
 		{
 			if (visited.contains(neighbors.get(i)))
 			{
+				maze[neighbors.get(i).getX()][neighbors.get(i).getY()] = "-";
 				i++;
 			}
 			else
 			{
+				maze[neighbors.get(i).getX()][neighbors.get(i).getY()] = " ";
 				currentCell = neighbors.get(i);
 				makePath(currentCell);
 			}

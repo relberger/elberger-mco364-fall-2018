@@ -32,7 +32,9 @@ public class MazeController
 
 	public Cell startingCell()
 	{
-		Cell start = new Cell(getRandomInt(), getRandomInt());
+		Random x = new Random();
+		Random y = new Random();
+		Cell start = new Cell(x.nextInt(maxRows()), y.nextInt(maxCols()));
 		return start;
 	}
 }

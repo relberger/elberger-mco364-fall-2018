@@ -4,7 +4,6 @@ public class Cell
 {
 	private int x;
 	private int y;
-	private Cell node;
 
 	public Cell(int x, int y)
 	{
@@ -30,15 +29,5 @@ public class Cell
 	public void setY(int y)
 	{
 		this.y = y;
-	}
-
-	public Cell getNextNode()
-	{
-		return node;
-	}
-
-	public void setNextNode(Cell node)
-	{
-		this.node = node;
 	}
 }
