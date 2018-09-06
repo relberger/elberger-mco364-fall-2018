@@ -28,7 +28,6 @@ public class Maze
 				maze[x][y] = "_";
 			}
 		}
-		//Arrays.fill(maze);
 		return maze;
 	}
 
@@ -66,7 +65,7 @@ public class Maze
 			neighbors.push(southNeighbor);
 		}
 
-		else if (cell.getY() == y - 1)
+		else if (cell.getY() == y)
 		{
 			Cell northNeighbor = new Cell(cell.getX() - 1, cell.getY());
 			Cell eastNeighbor = new Cell(cell.getX(), cell.getY() - 1);
@@ -77,7 +76,7 @@ public class Maze
 			neighbors.push(southNeighbor);
 		}
 
-		else if (cell.getX() == x - 1)
+		else if (cell.getX() == x)
 		{
 			Cell northNeighbor = new Cell(cell.getX() - 1, cell.getY());
 			Cell eastNeighbor = new Cell(cell.getX(), cell.getY() - 1);

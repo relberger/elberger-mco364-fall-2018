@@ -6,7 +6,7 @@ public class MazeMain
 {
 	public static void main(String args[])
 	{
-		int max = 25;
+		int max = 15;
 
 		Random x = new Random();
 		int row = x.nextInt(max);
