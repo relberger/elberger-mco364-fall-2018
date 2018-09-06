@@ -30,10 +30,9 @@ public class MazeController
 		return columns;
 	}
 
-	public MazeCell startingCell()
+	public Cell startingCell()
 	{
-		MazeCell start = new MazeCell(getRandomInt(), getRandomInt(), true);
-
+		Cell start = new Cell(getRandomInt(), getRandomInt());
 		return start;
 	}
 }

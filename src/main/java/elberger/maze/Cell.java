@@ -1,16 +1,15 @@
 package elberger.maze;
 
-public class MazeCell
+public class Cell
 {
 	private int x;
 	private int y;
-	private boolean visited;
+	private Cell node;
 
-	public MazeCell(int x, int y, boolean visited)
+	public Cell(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.visited = visited;
 	}
 
 	public int getX()
@@ -33,14 +32,13 @@ public class MazeCell
 		this.y = y;
 	}
 
-	public boolean isVisited()
+	public Cell getNextNode()
 	{
-		return visited;
+		return node;
 	}
 
-	public void setVisited(boolean visited)
+	public void setNextNode(Cell node)
 	{
-		this.visited = visited;
+		this.node = node;
 	}
-
 }
