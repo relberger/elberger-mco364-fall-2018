@@ -9,7 +9,7 @@ public class MazeModel
 	private int x;
 	private int y;
 	private String maze[][];
-	private LinkedList<Cell> visited;
+	private LinkedList<Cell> visited = new LinkedList<Cell>();
 
 	public MazeModel(int x, int y)
 	{
@@ -20,17 +20,17 @@ public class MazeModel
 
 	public LinkedList<Cell> findNeighbors(Cell cell)
 	{
-		LinkedList<Cell> neighbors = null;
+		LinkedList<Cell> neighbors = new LinkedList<Cell>();
 
 		Cell northNeighbor = new Cell(cell.getX() - 1, cell.getY());
 		Cell eastNeighbor = new Cell(cell.getX(), cell.getY() - 1);
 		Cell westNeighbor = new Cell(cell.getX(), cell.getY() + 1);
 		Cell southNeighbor = new Cell(cell.getX() + 1, cell.getY());
 
-		neighbors.add(northNeighbor);
-		neighbors.add(eastNeighbor);
-		neighbors.add(westNeighbor);
-		neighbors.add(southNeighbor);
+		neighbors.push(northNeighbor);
+		neighbors.push(eastNeighbor);
+		neighbors.push(westNeighbor);
+		neighbors.push(southNeighbor);
 
 		Collections.shuffle(neighbors);
 		return neighbors;
