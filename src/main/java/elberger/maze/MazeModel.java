@@ -36,7 +36,7 @@ public class MazeModel
 		return neighbors;
 	}
 
-	public void makePath(Cell startingCell)
+	public String makePath(Cell startingCell)
 	{
 		Cell currentCell = startingCell;
 		visited.push(currentCell);
@@ -57,5 +57,6 @@ public class MazeModel
 				makePath(currentCell);
 			}
 		}
+		return maze.toString();
 	}
 }
