@@ -14,8 +14,16 @@ public class MazeMain
 		int col = y.nextInt(max);
 
 		Maze maze = new Maze(row, col);
-		maze.fillAllMazeCells();
-		maze.generatePath();
+//		maze.generatePath();
+
+/*		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j < col; j++)
+			{
+				System.out.print(maze[i][j]);
+			}
+		}*/
+
 		System.out.print(maze.toString());
 	}
 }

@@ -5,7 +5,7 @@ import java.util.*;
 public class MazeModel
 {
 	private MazeController controller = new MazeController();
-	private Cell startingCell = controller.startingCell();
+	//private Cell startingCell = controller.startingCell();
 	private int x;
 	private int y;
 	private String maze[][];
@@ -18,7 +18,7 @@ public class MazeModel
 		maze = new String[x][y];
 	}
 
-	public LinkedList<Cell> findNeighbors(Cell cell)
+	/*public LinkedList<Cell> findNeighbors(Cell cell)
 	{
 		LinkedList<Cell> neighbors = new LinkedList<Cell>();
 
@@ -58,5 +58,5 @@ public class MazeModel
 			}
 		}
 		return maze.toString();
-	}
+	}*/
 }

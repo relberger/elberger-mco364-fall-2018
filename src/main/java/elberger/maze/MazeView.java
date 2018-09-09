@@ -7,6 +7,6 @@ public class MazeView
 		MazeController controller = new MazeController();
 
 		MazeModel model = new MazeModel(controller.maxRows(), controller.maxCols());
-		model.makePath(controller.startingCell());
+		//model.makePath(controller.startingCell());
 	}
 }

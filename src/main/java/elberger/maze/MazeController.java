@@ -30,11 +30,11 @@ public class MazeController
 		return columns;
 	}
 
-	public Cell startingCell()
+/*	public Cell startingCell()
 	{
 		Random x = new Random();
 		Random y = new Random();
 		Cell start = new Cell(x.nextInt(maxRows()), y.nextInt(maxCols()));
 		return start;
-	}
+	}*/
 }
