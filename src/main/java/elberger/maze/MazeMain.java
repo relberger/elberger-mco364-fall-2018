@@ -6,14 +6,18 @@ public class MazeMain
 {
 	public static void main(String args[])
 	{
-		int max = 15;
+	int max = 4;
+	int min = 1;
 
-		Random x = new Random();
-		int row = x.nextInt(max);
-		Random y = new Random();
-		int col = y.nextInt(max);
+	Random x = new Random();
+	int row = x.nextInt((max - min) + min);
+	Random y = new Random();
+	int col = y.nextInt((max - min) + min);
 
-		Maze maze = new Maze(row, col);
+	Maze maze = new Maze(row, col);
+
+	maze.displayMaze();
+
 //		maze.generatePath();
 
 /*		for (int i = 0; i < row; i++)
@@ -24,6 +28,6 @@ public class MazeMain
 			}
 		}*/
 
-		System.out.print(maze.toString());
+	//System.out.print(maze.toString());
 	}
 }
