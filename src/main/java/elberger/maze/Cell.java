@@ -15,11 +15,11 @@ public class Cell
 	{
 		this.x = x;
 		this.y = y;
-		this.visited = visited;
-		this.northWall = northWall;
-		this.southWall = southWall;
-		this.eastWall = eastWall;
-		this.westWall = westWall;
+		this.visited = false;
+		this.northWall = true;
+		this.southWall = true;
+		this.eastWall = true;
+		this.westWall = true;
 		this.value = value;
 	}
 

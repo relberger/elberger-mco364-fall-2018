@@ -7,12 +7,12 @@ public class Maze
 	private int x;
 	private int y;
 	private Cell maze[][];
-	private String north;
-	private String south;
-	private String east;
-	private String west;
-	private LinkedList<String> directions = new LinkedList<String>();
-	private Stack<Cell> stack = new Stack();
+	private final String NORTH = "NORTH";
+	private final String SOUTH = "SOUTH";
+	private final String EAST = "EAST";
+	private final String WEST = "WEST";
+	private LinkedList<String> directions = new LinkedList<>();
+	private Stack<Cell> stack = new Stack<>();
 
 	public Maze(int x, int y)
 	{
@@ -42,26 +42,21 @@ public class Maze
 
 	public LinkedList<String> chooseDirection(Cell cell)
 	{
-		north = "north";
-		south = "south";
-		east = "east";
-		west = "west";
-
 		if (cell.getY() != 0)
 		{
-			directions.push(north);
+			directions.push(NORTH);
 		}
 		if (cell.getY() < (getY() - 1))
 		{
-			directions.push(south);
+			directions.push(SOUTH);
 		}
 		if (cell.getX() != 0)
 		{
-			directions.push(west);
+			directions.push(WEST);
 		}
 		if (cell.getX() < (getX() - 1))
 		{
-			directions.push(east);
+			directions.push(EAST);
 		}
 
 		Collections.shuffle(directions);
@@ -80,11 +75,10 @@ public class Maze
 			stack.addAll(getNeighbors(currentCell, direction));
 
 			Cell nextCell = stack.pop();
-			breakWalls(currentCell, nextCell, direction);
-
 			if (!nextCell.isVisited())
 			{
 				nextCell.setVisited(true);
+				breakWalls(currentCell, nextCell, direction);
 				stack.push(nextCell);
 				directions.clear();
 			}
@@ -99,22 +93,22 @@ public class Maze
 	private void breakWalls(Cell currentCell, Cell nextCell, String direction)
 	{
 
-		if (direction == north)
+		if (direction == NORTH)
 		{
 			currentCell.setNorthWall(false);
 			nextCell.setSouthWall(false);
 		}
-		else if (direction == south)
+		else if (direction == SOUTH)
 		{
 			currentCell.setSouthWall(false);
 			nextCell.setNorthWall(false);
 		}
-		else if (direction == east)
+		else if (direction == EAST)
 		{
 			currentCell.setEastWall(false);
 			nextCell.setWestWall(false);
 		}
-		else if (direction == west)
+		else if (direction == WEST)
 		{
 			currentCell.setWestWall(false);
 			nextCell.setEastWall(false);
@@ -127,7 +121,7 @@ public class Maze
 
 		if (currentCell.getY() != 0)
 		{
-			if (direction == north)
+			if (direction == NORTH)
 			{
 				neighbors.addLast(maze[currentCell.getX()][currentCell.getY() - 1]);
 			}
@@ -138,7 +132,7 @@ public class Maze
 		}
 		if (currentCell.getY() < (getY() - 1))
 		{
-			if(direction == south)
+			if(direction == SOUTH)
 			{
 				neighbors.addLast(maze[currentCell.getX()][currentCell.getY() + 1]);
 			}
@@ -149,7 +143,7 @@ public class Maze
 		}
 		if (currentCell.getX() != 0)
 		{
-			if (direction == west)
+			if (direction == WEST)
 			{
 				neighbors.addLast(maze[currentCell.getX() - 1][currentCell.getY()]);
 			}
@@ -160,7 +154,7 @@ public class Maze
 		}
 		if (currentCell.getX() < (getX() - 1))
 		{
-			if (direction == east)
+			if (direction == EAST)
 			{
 				neighbors.addLast(maze[currentCell.getX() + 1][currentCell.getY()]);
 			}
@@ -174,11 +168,7 @@ public class Maze
 
 	public Cell startingCell()
 	{
-		Random x = new Random();
-		Random y = new Random();
-		Cell cell = new Cell(x.nextInt((getX() - 0) + 0), y.nextInt((getY() - 0) + 0), false,
-				true, true, true, true, "");
-		return cell;
+		return maze[0][0];
 	}
 
 	public Cell[][] displayMaze()
@@ -210,8 +200,8 @@ public class Maze
 		return maze;
 	}
 
-	public void generatePath()
+	/*public void generatePath()
 	{
 		searchPath(startingCell());
-	}
+	}*/
 }
