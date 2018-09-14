@@ -11,16 +11,15 @@ public class Cell
 	private boolean westWall;
 	private String value;
 
-	public Cell(int x, int y, boolean visited, boolean northWall, boolean southWall, boolean eastWall, boolean westWall, String value)
+	public Cell(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.visited = false;
-		this.northWall = true;
-		this.southWall = true;
-		this.eastWall = true;
-		this.westWall = true;
-		this.value = value;
+		visited = false;
+		northWall = true;
+		southWall = true;
+		eastWall = true;
+		westWall = true;
 	}
 
 	public int getX()
@@ -93,10 +92,10 @@ public class Cell
 		this.westWall = westWall;
 	}
 
-	public String getValue()
+	/*public String getValue()
 	{
 		return value;
-	}
+	}*/
 
 	public void setValue(String value)
 	{

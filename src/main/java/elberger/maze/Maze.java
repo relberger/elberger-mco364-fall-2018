@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Maze
 {
-	private int x;
-	private int y;
+	private int width;
+	private int height;
 	private Cell maze[][];
 	private final String NORTH = "NORTH";
 	private final String SOUTH = "SOUTH";
@@ -14,30 +14,29 @@ public class Maze
 	private LinkedList<String> directions = new LinkedList<>();
 	private Stack<Cell> stack = new Stack<>();
 
-	public Maze(int x, int y)
+	public Maze(int width, int height)
 	{
-		this.x = x;
-		this.y = y;
-		maze = new Cell[x][y];
+		this.width = width;
+		this.height = height;
+		maze = new Cell[width][height];
 
-		for (int i = 0; i < x; i++)
+		for (int i = 0; i < width; i++)
 		{
-			for (int j = 0; j < y; j++)
+			for (int j = 0; j < height; j++)
 			{
-				maze[i][j] = new Cell(i, j, false,
-						true, true, true, true, "");
+				maze[i][j] = new Cell(i, j);
 			}
 		}
 	}
 
-	public int getX()
+	public int getWidth()
 	{
-		return x;
+		return width;
 	}
 
-	public int getY()
+	public int getHeight()
 	{
-		return y;
+		return height;
 	}
 
 	public LinkedList<String> chooseDirection(Cell cell)
@@ -46,7 +45,7 @@ public class Maze
 		{
 			directions.push(NORTH);
 		}
-		if (cell.getY() < (getY() - 1))
+		if (cell.getY() < (getHeight() - 1))
 		{
 			directions.push(SOUTH);
 		}
@@ -54,7 +53,7 @@ public class Maze
 		{
 			directions.push(WEST);
 		}
-		if (cell.getX() < (getX() - 1))
+		if (cell.getX() < (getWidth() - 1))
 		{
 			directions.push(EAST);
 		}
@@ -130,7 +129,7 @@ public class Maze
 				neighbors.addFirst(maze[currentCell.getX()][currentCell.getY() - 1]);
 			}
 		}
-		if (currentCell.getY() < (getY() - 1))
+		if (currentCell.getY() < (getHeight() - 1))
 		{
 			if(direction == SOUTH)
 			{
@@ -152,7 +151,7 @@ public class Maze
 				neighbors.addFirst(maze[currentCell.getX() - 1][currentCell.getY()]);
 			}
 		}
-		if (currentCell.getX() < (getX() - 1))
+		if (currentCell.getX() < (getWidth() - 1))
 		{
 			if (direction == EAST)
 			{
@@ -166,19 +165,14 @@ public class Maze
 		return neighbors;
 	}
 
-	public Cell startingCell()
-	{
-		return maze[0][0];
-	}
-
 	public Cell[][] displayMaze()
 	{
-		searchPath(startingCell());
+		searchPath(maze[0][0]);
 
 		//StringBuilder display = new StringBuilder();
-		for (int i = 0; i < x; i++)
+		for (int i = 0; i < width; i++)
 		{
-			for (int j = 0; j < y; j++)
+			for (int j = 0; j < height; j++)
 			{
 				if (maze[i][j].isSouthWall() == true && maze[i][j].isWestWall() == true)
 				{
@@ -200,8 +194,8 @@ public class Maze
 		return maze;
 	}
 
-	/*public void generatePath()
+	public void generatePath()
 	{
-		searchPath(startingCell());
-	}*/
+		searchPath(maze[0][0]);
+	}
 }

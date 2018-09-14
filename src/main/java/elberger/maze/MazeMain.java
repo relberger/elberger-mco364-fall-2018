@@ -7,7 +7,7 @@ public class MazeMain
 	public static void main(String args[])
 	{
 		int max = 4;
-		int min = 1;
+		int min = 2;
 
 		Random x = new Random();
 		int row = x.nextInt((max - min) + min);

@@ -22,10 +22,10 @@ public class MazeModel
 	{
 		LinkedList<Cell> neighbors = new LinkedList<Cell>();
 
-		Cell northNeighbor = new Cell(cell.getX() - 1, cell.getY());
-		Cell eastNeighbor = new Cell(cell.getX(), cell.getY() - 1);
-		Cell westNeighbor = new Cell(cell.getX(), cell.getY() + 1);
-		Cell southNeighbor = new Cell(cell.getX() + 1, cell.getY());
+		Cell northNeighbor = new Cell(cell.getWidth() - 1, cell.getHeight());
+		Cell eastNeighbor = new Cell(cell.getWidth(), cell.getHeight() - 1);
+		Cell westNeighbor = new Cell(cell.getWidth(), cell.getHeight() + 1);
+		Cell southNeighbor = new Cell(cell.getWidth() + 1, cell.getHeight());
 
 		neighbors.push(northNeighbor);
 		neighbors.push(eastNeighbor);
@@ -47,12 +47,12 @@ public class MazeModel
 		{
 			if (visited.contains(neighbors.get(i)))
 			{
-				maze[neighbors.get(i).getX()][neighbors.get(i).getY()] = "-";
+				maze[neighbors.get(i).getWidth()][neighbors.get(i).getHeight()] = "-";
 				i++;
 			}
 			else
 			{
-				maze[neighbors.get(i).getX()][neighbors.get(i).getY()] = " ";
+				maze[neighbors.get(i).getWidth()][neighbors.get(i).getHeight()] = " ";
 				currentCell = neighbors.get(i);
 				makePath(currentCell);
 			}
