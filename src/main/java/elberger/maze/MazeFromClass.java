@@ -15,7 +15,7 @@ public class MazeFromClass
 		{
 			for (int j = 0; j < height; j++)
 			{
-				cells[i][j] = new Cell(i, j);
+				//cells[i][j] = new Cell(i, j);
 			}
 		}
 	}
@@ -24,17 +24,17 @@ public class MazeFromClass
 	{
 		StringBuilder builder = new StringBuilder();
 
-
-
 		for (int i = 0; i < width; i++)
 		{
 			for (int j = 0; j < height; j++)
 			{
 				Cell cell = cells[i][j];
-				if (cell.isSouthWall()) {
+				if (cell.isSouthWall())
+				{
 					builder.append("_");
 				}
-				if (cell.isEastWall()) {
+				if (cell.isEastWall())
+				{
 					builder.append("|");
 				}
 			}

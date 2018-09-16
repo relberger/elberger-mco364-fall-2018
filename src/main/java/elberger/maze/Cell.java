@@ -4,22 +4,16 @@ public class Cell
 {
 	private int x;
 	private int y;
-	private boolean visited;
-	private boolean northWall;
-	private boolean southWall;
-	private boolean eastWall;
-	private boolean westWall;
-	private String value;
+	private boolean visited = false;
+	private boolean northWall = true;
+	private boolean southWall = true;
+	private boolean eastWall = true;
+	private boolean westWall = true;
 
 	public Cell(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		visited = false;
-		northWall = true;
-		southWall = true;
-		eastWall = true;
-		westWall = true;
 	}
 
 	public int getX()
@@ -27,19 +21,9 @@ public class Cell
 		return x;
 	}
 
-	public void setX(int x)
-	{
-		this.x = x;
-	}
-
 	public int getY()
 	{
 		return y;
-	}
-
-	public void setY(int y)
-	{
-		this.y = y;
 	}
 
 	public boolean isVisited()
@@ -90,16 +74,6 @@ public class Cell
 	public void setWestWall(boolean westWall)
 	{
 		this.westWall = westWall;
-	}
-
-	/*public String getValue()
-	{
-		return value;
-	}*/
-
-	public void setValue(String value)
-	{
-		this.value = value;
 	}
 
 }

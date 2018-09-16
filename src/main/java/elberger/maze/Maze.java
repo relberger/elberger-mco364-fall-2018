@@ -7,12 +7,6 @@ public class Maze
 	private int width;
 	private int height;
 	private Cell maze[][];
-	private final String NORTH = "NORTH";
-	private final String SOUTH = "SOUTH";
-	private final String EAST = "EAST";
-	private final String WEST = "WEST";
-	private LinkedList<String> directions = new LinkedList<>();
-	private Stack<Cell> stack = new Stack<>();
 
 	public Maze(int width, int height)
 	{
@@ -39,49 +33,23 @@ public class Maze
 		return height;
 	}
 
-	public LinkedList<String> chooseDirection(Cell cell)
-	{
-		if (cell.getY() != 0)
-		{
-			directions.push(NORTH);
-		}
-		if (cell.getY() < (getHeight() - 1))
-		{
-			directions.push(SOUTH);
-		}
-		if (cell.getX() != 0)
-		{
-			directions.push(WEST);
-		}
-		if (cell.getX() < (getWidth() - 1))
-		{
-			directions.push(EAST);
-		}
-
-		Collections.shuffle(directions);
-		return directions;
-	}
-
 	public void searchPath(Cell cell)
 	{
+		Stack<Cell> stack = new Stack<>();
 		stack.push(cell);
 		cell.setVisited(true);
 
 		while (!stack.isEmpty())
 		{
 			Cell currentCell = stack.pop();
-			String direction = chooseDirection(currentCell).getFirst();
-			stack.addAll(getNeighbors(currentCell, direction));
+			Cell nextCell = getNeighbors(currentCell).get(0);
 
-			Cell nextCell = stack.pop();
 			if (!nextCell.isVisited())
 			{
 				nextCell.setVisited(true);
-				breakWalls(currentCell, nextCell, direction);
+				breakWalls(currentCell, nextCell);
 				stack.push(nextCell);
-				directions.clear();
-			}
-			else
+			} else
 			{
 				stack.pop();
 				searchPath(nextCell);
@@ -89,113 +57,94 @@ public class Maze
 		}
 	}
 
-	private void breakWalls(Cell currentCell, Cell nextCell, String direction)
+	public List<Cell> getNeighbors(Cell currentCell)
 	{
+		List<Cell> neighbors = new ArrayList<>();
 
-		if (direction == NORTH)
+		//add north neighbor
+		if (currentCell.getY() != 0)
+		{
+			neighbors.add(maze[currentCell.getX()][currentCell.getY() - 1]);
+		}
+		//get south neighbor
+		if (currentCell.getY() < (getHeight() - 1))
+		{
+			neighbors.add(maze[currentCell.getX()][currentCell.getY() + 1]);
+		}
+		//get west neighbor
+		if (currentCell.getX() != 0)
+		{
+			neighbors.add(maze[currentCell.getX() - 1][currentCell.getY()]);
+		}
+		//get east neighbor
+		if (currentCell.getX() < (getWidth() - 1))
+		{
+			neighbors.add(maze[currentCell.getX() + 1][currentCell.getY()]);
+		}
+
+		Collections.shuffle(neighbors);
+		return neighbors;
+	}
+
+	private void breakWalls(Cell currentCell, Cell nextCell)
+	{
+		//neighbor = north
+		if (currentCell.getY() == nextCell.getY() + 1)
 		{
 			currentCell.setNorthWall(false);
 			nextCell.setSouthWall(false);
 		}
-		else if (direction == SOUTH)
+		//neighbor = south
+		else if (currentCell.getY() == nextCell.getY() - 1)
 		{
 			currentCell.setSouthWall(false);
 			nextCell.setNorthWall(false);
 		}
-		else if (direction == EAST)
+		//neighbor = east
+		else if (currentCell.getX() == nextCell.getX() + 1)
 		{
 			currentCell.setEastWall(false);
 			nextCell.setWestWall(false);
 		}
-		else if (direction == WEST)
+		//neighbor = west
+		else if (currentCell.getX() == nextCell.getX() - 1)
 		{
 			currentCell.setWestWall(false);
 			nextCell.setEastWall(false);
 		}
 	}
 
-	public LinkedList<Cell> getNeighbors(Cell currentCell, String direction)
-	{
-		LinkedList<Cell> neighbors = new LinkedList<Cell>();
-
-		if (currentCell.getY() != 0)
-		{
-			if (direction == NORTH)
-			{
-				neighbors.addLast(maze[currentCell.getX()][currentCell.getY() - 1]);
-			}
-			else
-			{
-				neighbors.addFirst(maze[currentCell.getX()][currentCell.getY() - 1]);
-			}
-		}
-		if (currentCell.getY() < (getHeight() - 1))
-		{
-			if(direction == SOUTH)
-			{
-				neighbors.addLast(maze[currentCell.getX()][currentCell.getY() + 1]);
-			}
-			else
-			{
-				neighbors.addFirst(maze[currentCell.getX()][currentCell.getY() + 1]);
-			}
-		}
-		if (currentCell.getX() != 0)
-		{
-			if (direction == WEST)
-			{
-				neighbors.addLast(maze[currentCell.getX() - 1][currentCell.getY()]);
-			}
-			else
-			{
-				neighbors.addFirst(maze[currentCell.getX() - 1][currentCell.getY()]);
-			}
-		}
-		if (currentCell.getX() < (getWidth() - 1))
-		{
-			if (direction == EAST)
-			{
-				neighbors.addLast(maze[currentCell.getX() + 1][currentCell.getY()]);
-			}
-			else
-			{
-				neighbors.addFirst(maze[currentCell.getX() + 1][currentCell.getY()]);
-			}
-		}
-		return neighbors;
-	}
-
-	public Cell[][] displayMaze()
+	public String toString()
 	{
 		searchPath(maze[0][0]);
 
-		//StringBuilder display = new StringBuilder();
+		StringBuilder display = new StringBuilder();
+
 		for (int i = 0; i < width; i++)
 		{
 			for (int j = 0; j < height; j++)
 			{
-				if (maze[i][j].isSouthWall() == true && maze[i][j].isWestWall() == true)
+				Cell cell = maze[i][j];
+				if (cell.isSouthWall())
 				{
-					//System.out.print("¯");
-					//display.append("|_");
-					maze[i][j].setValue("|_");
-				} else if (maze[i][j].isSouthWall() == false && maze[i][j].isWestWall() == true)
+					display.append("_");
+				}
+				else
 				{
-					maze[i][j].setValue("| ");
-				} else if (maze[i][j].isSouthWall() == true && maze[i][j].isWestWall() == false)
+					display.append(" ");
+				}
+				if (cell.isEastWall())
 				{
-					maze[i][j].setValue(" _");
-				} else if (maze[i][j].isSouthWall() == false && maze[i][j].isWestWall() == false)
+					display.append("|");
+				}
+				else
 				{
-					maze[i][j].setValue("  ");
+					display.append(" ");
 				}
 			}
+			display.append("\n");
 		}
-		return maze;
-	}
 
-	public void generatePath()
-	{
-		searchPath(maze[0][0]);
+		return display.toString();
 	}
 }
