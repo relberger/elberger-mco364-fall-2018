@@ -75,5 +75,4 @@ public class Cell
 	{
 		this.westWall = westWall;
 	}
-
 }

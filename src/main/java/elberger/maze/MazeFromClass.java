@@ -2,7 +2,7 @@ package elberger.maze;
 
 public class MazeFromClass
 {
-	private final int width;
+	/*private final int width;
 	private final int height;
 	Cell[][] cells;
 
@@ -15,7 +15,7 @@ public class MazeFromClass
 		{
 			for (int j = 0; j < height; j++)
 			{
-				//cells[i][j] = new Cell(i, j);
+				cells[i][j] = new Cell(i, j);
 			}
 		}
 	}
@@ -41,5 +41,5 @@ public class MazeFromClass
 			builder.append("\n");
 		}
 		return builder.toString();
-	}
+	}*/
 }

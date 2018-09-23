@@ -33,30 +33,6 @@ public class Maze
 		return height;
 	}
 
-	public void searchPath(Cell cell)
-	{
-		Stack<Cell> stack = new Stack<>();
-		stack.push(cell);
-		cell.setVisited(true);
-
-		while (!stack.isEmpty())
-		{
-			Cell currentCell = stack.pop();
-			Cell nextCell = getNeighbors(currentCell).get(0);
-
-			if (!nextCell.isVisited())
-			{
-				nextCell.setVisited(true);
-				breakWalls(currentCell, nextCell);
-				stack.push(nextCell);
-			} else
-			{
-				stack.pop();
-				searchPath(nextCell);
-			}
-		}
-	}
-
 	public List<Cell> getNeighbors(Cell currentCell)
 	{
 		List<Cell> neighbors = new ArrayList<>();
@@ -114,6 +90,35 @@ public class Maze
 		}
 	}
 
+	public void searchPath(Cell cell)
+	{
+		Stack<Cell> stack = new Stack<>();
+		stack.push(cell);
+		cell.setVisited(true);
+
+		while (!stack.isEmpty())
+		{
+			Cell currentCell = stack.pop();
+			Cell nextCell = getNeighbors(currentCell).get(0);
+
+			if (!nextCell.isVisited())
+			{
+				nextCell.setVisited(true);
+				breakWalls(currentCell, nextCell);
+				stack.push(nextCell);
+			}
+			else if (nextCell.isVisited())
+			{
+				for (int i = 0; i < getNeighbors(nextCell).size(); i++)
+				{
+					stack.push(getNeighbors(nextCell).get(i));
+				}
+				stack.remove(nextCell);
+			}
+		}
+	}
+
+	@Override
 	public String toString()
 	{
 		searchPath(maze[0][0]);
