@@ -107,11 +107,11 @@ public class Maze
 				breakWalls(currentCell, nextCell);
 				stack.push(nextCell);
 			}
-			else if (nextCell.isVisited())
+			else
 			{
 				for (int i = 0; i < getNeighbors(nextCell).size(); i++)
 				{
-					stack.push(getNeighbors(nextCell).get(i));
+					stack.push(getNeighbors(currentCell).get(i));
 				}
 				stack.remove(nextCell);
 			}
@@ -133,16 +133,14 @@ public class Maze
 				if (cell.isSouthWall())
 				{
 					display.append("_");
-				}
-				else
+				} else
 				{
 					display.append(" ");
 				}
 				if (cell.isEastWall())
 				{
 					display.append("|");
-				}
-				else
+				} else
 				{
 					display.append(" ");
 				}

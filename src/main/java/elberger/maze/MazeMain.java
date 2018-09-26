@@ -6,8 +6,8 @@ public class MazeMain
 {
 	public static void main(String args[])
 	{
-/*		int max = 4;
-		int min = 2;
+/*		int max = 10;
+		int min = 5;
 
 		Random x = new Random();
 		int row = x.nextInt((max - min) + min);
@@ -16,6 +16,6 @@ public class MazeMain
 
 		Maze maze = new Maze(2, 2);
 
-		maze.toString();
+		System.out.print(maze.toString());
 	}
 }
