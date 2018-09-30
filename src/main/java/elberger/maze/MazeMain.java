@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class MazeMain
 {
-	public static void main(String args[])
+	public static void main(String[] args)
 	{
 /*		int max = 10;
 		int min = 5;
