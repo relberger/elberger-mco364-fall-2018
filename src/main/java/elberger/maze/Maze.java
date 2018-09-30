@@ -109,7 +109,7 @@ public class Maze
 			}
 			else
 			{
-				for (int i = 0; i < getNeighbors(nextCell).size(); i++)
+				for (int i = 0; i < getNeighbors(currentCell).size(); i++)
 				{
 					stack.push(getNeighbors(currentCell).get(i));
 				}
