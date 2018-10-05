@@ -1,12 +1,13 @@
 package forecast;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 
@@ -15,6 +16,7 @@ public class ForecastController
 	private ForecastView view;
 	private ForecastService service;
 	private List<WeatherPanel> weatherPanels;
+	Disposable disposable;
 	
 	public ForecastController(ForecastView view, ForecastService service)
 	{
@@ -24,42 +26,20 @@ public class ForecastController
 		this.weatherPanels = view.getWeatherPanels();
 	}
 	
-	public void requestForecastFeed(Call <ForecastFeedModel> call)
+	public void requestForecastFeed()
 	{
-		call.enqueue(new Callback<ForecastFeedModel>()
-				{
-					@Override
-					public void onResponse(Call <ForecastFeedModel> call, Response <ForecastFeedModel> response)
-					{
-						ForecastFeedModel feed = response.body();
-						
-						try
-						{
-							if(response.errorBody() != null)
-							{
-								view.invalidZipDialog();
-							}
-							else 
-							{
-								showForecast(feed);
-							}
-						} catch (MalformedURLException e)
-						{
-							e.printStackTrace();
-						}
-					}
-
-					@Override
-					public void onFailure(Call<ForecastFeedModel> call, Throwable t)
-					{
-						t.printStackTrace();						
-					}
-				});
+		disposable = Observable
+				.interval(0, 10, TimeUnit.MINUTES)
+				.flatMap(forecast -> service.getWeatherByZip(view.getUserZip().trim()))
+				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.single())
+				.subscribe(this :: showForecast,
+						throwable -> view.invalidZipDialog());
 	}
 	
 	public void requestForecast()
 	{
-		requestForecastFeed(service.getWeatherByZip(view.getUserZip().trim()));			
+		requestForecastFeed();
 	}	
 	
 	void showForecast(ForecastFeedModel feed) throws MalformedURLException
@@ -103,9 +83,9 @@ public class ForecastController
 			
 			weatherPanels.get(ix).getDesc().setText(weather[0].getDescription());
 			
-			weatherPanels.get(ix).getHigh().setText("High: " + String.valueOf(forecast.getMain().getTemp_max()) + "�F");
+			weatherPanels.get(ix).getHigh().setText("High: " + String.valueOf(forecast.getMain().getTemp_max()) + "°F");
 			
-			weatherPanels.get(ix).getLow().setText("Low: " + String.valueOf(forecast.getMain().getTemp_min()) + "�F");
+			weatherPanels.get(ix).getLow().setText("Low: " + String.valueOf(forecast.getMain().getTemp_min()) + "°F");
 		}
 	}
 }
