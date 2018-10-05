@@ -43,6 +43,7 @@ public class ForecastView extends JFrame
 		search.addActionListener(e ->
 		{
 			controller.requestForecast();
+			controller.stop();
 		});
 		
 		zipPanel.add(enterZip);
@@ -61,8 +62,8 @@ public class ForecastView extends JFrame
 		}
 		
 		panel.add(hourlyWeather, BorderLayout.CENTER);
-		add(panel);
 
+		add(panel);
 	}
 	
 	public void invalidZipDialog()

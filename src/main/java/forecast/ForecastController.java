@@ -88,4 +88,9 @@ public class ForecastController
 			weatherPanels.get(ix).getLow().setText("Low: " + String.valueOf(forecast.getMain().getTemp_min()) + "°F");
 		}
 	}
+
+	public void stop()
+	{
+		disposable.dispose();
+	}
 }
