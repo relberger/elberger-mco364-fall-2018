@@ -43,7 +43,6 @@ public class ForecastView extends JFrame
 		search.addActionListener(e ->
 		{
 			controller.requestForecast();
-			//controller.stop();
 		});
 		
 		zipPanel.add(enterZip);
@@ -95,11 +94,6 @@ public class ForecastView extends JFrame
 	public String getUserZip()
 	{
 		return userZip.getText();
-	}
-
-	public JTextField getUserZipField()
-	{
-		return userZip;
 	}
 
 	public List<WeatherPanel> getWeatherPanels()

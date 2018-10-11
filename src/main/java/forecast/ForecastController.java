@@ -32,7 +32,7 @@ public class ForecastController
 	public void requestForecastFeed()
 	{
 		disposable = Observable
-				.interval(0, 0, TimeUnit.SECONDS)
+				.interval(0, 5, TimeUnit.SECONDS)
 				.flatMap(forecast -> service.getWeatherByZip(view.getUserZip().trim()))
 				.map(feed -> feed.getList())
 				.subscribeOn(Schedulers.io())
@@ -49,12 +49,11 @@ public class ForecastController
 	{
 		for(int ix = 0; ix < weatherPanels.size(); ix++)
 		{
-			list = feed.getList();
-								/*list
+			List<Forecast> info = list
 								.stream()
-								.collect(Collectors.toList());*/
+								.collect(Collectors.toList());
 			
-			Forecast forecast = list.get(ix);
+			Forecast forecast = info.get(ix);
 			String timeStamp = forecast.getDt_txt();
 			String timeStampSplit[] = timeStamp.split(" " , 2);
 			String fullTime = timeStampSplit[1];
