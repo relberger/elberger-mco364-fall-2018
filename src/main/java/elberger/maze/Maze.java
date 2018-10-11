@@ -105,15 +105,17 @@ public class Maze
 			{
 				nextCell.setVisited(true);
 				breakWalls(currentCell, nextCell);
-				stack.push(nextCell);
+				stack.addAll(getNeighbors(currentCell));
 			}
 			else
 			{
 				for (int i = 0; i < getNeighbors(currentCell).size(); i++)
 				{
-					stack.push(getNeighbors(currentCell).get(i));
+					if (getNeighbors(currentCell).get(i).isVisited())
+					{
+						stack.remove(getNeighbors(currentCell).get(i));
+					}
 				}
-				stack.remove(nextCell);
 			}
 		}
 	}
