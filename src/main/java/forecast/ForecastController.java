@@ -1,6 +1,7 @@
 package forecast;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -8,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import javax.swing.ImageIcon;
 
@@ -17,7 +19,8 @@ public class ForecastController
 	private ForecastService service;
 	private List<WeatherPanel> weatherPanels;
 	Disposable disposable;
-	
+	private ForecastFeedModel feed;
+
 	public ForecastController(ForecastView view, ForecastService service)
 	{
 		super();
@@ -29,26 +32,29 @@ public class ForecastController
 	public void requestForecastFeed()
 	{
 		disposable = Observable
-				.interval(0, 10, TimeUnit.MINUTES)
+				.interval(0, 0, TimeUnit.SECONDS)
 				.flatMap(forecast -> service.getWeatherByZip(view.getUserZip().trim()))
+				.map(feed -> feed.getList())
 				.subscribeOn(Schedulers.io())
 				.observeOn(Schedulers.single())
-				.subscribe(this :: showForecast,
-						throwable -> view.invalidZipDialog());
+				.subscribe(this::showForecast, throwable -> view.invalidZipDialog());
 	}
-	
+
 	public void requestForecast()
 	{
 		requestForecastFeed();
-	}	
-	
-	void showForecast(ForecastFeedModel feed) throws MalformedURLException
+	}
+
+	private void showForecast(List<Forecast> list) throws MalformedURLException
 	{
 		for(int ix = 0; ix < weatherPanels.size(); ix++)
 		{
-			List<Forecast> info = feed.getList();
+			list = feed.getList();
+								/*list
+								.stream()
+								.collect(Collectors.toList());*/
 			
-			Forecast forecast = info.get(ix);
+			Forecast forecast = list.get(ix);
 			String timeStamp = forecast.getDt_txt();
 			String timeStampSplit[] = timeStamp.split(" " , 2);
 			String fullTime = timeStampSplit[1];

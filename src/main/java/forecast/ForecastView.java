@@ -43,7 +43,7 @@ public class ForecastView extends JFrame
 		search.addActionListener(e ->
 		{
 			controller.requestForecast();
-			controller.stop();
+			//controller.stop();
 		});
 		
 		zipPanel.add(enterZip);
