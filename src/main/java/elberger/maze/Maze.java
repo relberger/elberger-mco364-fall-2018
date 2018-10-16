@@ -114,8 +114,7 @@ public class Maze
 					stack.push(nextCell);
 					cell = nextCell;
 				}
-			}
-			else
+			} else
 			{
 				cell = stack.pop();
 			}
@@ -127,11 +126,11 @@ public class Maze
 	{
 		StringBuilder display = new StringBuilder();
 
-		for (int i = 0; i < width; i++)
+		for (int i = 0; i < getWidth(); i++)
 		{
-			for (int j = 0; j < height; j++)
+			for (int j = 0; j < getHeight(); j++)
 			{
-				Cell cell = maze[i][j];
+				Cell cell = maze[j][i];
 				if (cell.isSouthWall())
 				{
 					display.append("_");

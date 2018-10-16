@@ -14,7 +14,7 @@ public class MazeMain
 		Random y = new Random();
 		int col = y.nextInt((max - min) + min);*/
 
-		Maze maze = new Maze(4, 4);
+		Maze maze = new Maze(6, 6);
 		maze.searchPath();
 
 		System.out.print(maze.toString());
