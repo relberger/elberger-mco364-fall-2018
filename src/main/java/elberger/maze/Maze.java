@@ -92,35 +92,39 @@ public class Maze
 
 	public void searchPath()
 	{
+		int visitedCellCount = 0;
 		Stack<Cell> stack = new Stack<>();
 		Cell cell = maze[0][0];
+		List<Cell> neighbors = getUnvisitedNeighbors(cell);
+
 		cell.setVisited(true);
 		stack.push(cell);
+		visitedCellCount++;
 
-		while (stack.size() < (getHeight() * getWidth()))
+		while (visitedCellCount < (getHeight() * getWidth()) && neighbors.size() > 0)
 		{
-			List<Cell> neighbors = getUnvisitedNeighbors(cell);
 			Cell nextCell = neighbors.get(0);
-
-			if(!nextCell.isVisited())
+			if (!nextCell.isVisited())
 			{
 				nextCell.setVisited(true);
+				visitedCellCount++;
 				breakWalls(cell, nextCell);
 				stack.push(nextCell);
-				if (getUnvisitedNeighbors(cell).size() > 0)
+				if (neighbors.size() > 0)
 				{
-					cell = getUnvisitedNeighbors(cell).get(0);
+					cell = nextCell;
 				}
 				else
 				{
-					break;
+					cell = stack.pop();
 				}
 			}
-			else if (!stack.isEmpty())
+		}
+
+			/*else if (!stack.isEmpty())
 			{
 				cell = stack.pop();
-			}
-		}
+			}*/
 
 /*		cell = maze[0][0];
 		cell.setVisited(true);
