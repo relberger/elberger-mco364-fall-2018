@@ -15,6 +15,7 @@ public class MazeMain
 		int col = y.nextInt((max - min) + min);*/
 
 		Maze maze = new Maze(2, 2);
+		maze.searchPath();
 
 		System.out.print(maze.toString());
 	}

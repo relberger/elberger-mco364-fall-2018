@@ -33,7 +33,7 @@ public class Maze
 		return height;
 	}
 
-	public List<Cell> getNeighbors(Cell currentCell)
+	public List<Cell> getUnvisitedNeighbors(Cell currentCell)
 	{
 		List<Cell> unvisitedNeighbors = new ArrayList<>();
 
@@ -90,16 +90,16 @@ public class Maze
 		}
 	}
 
-	public void searchPath(Cell cell)
+	public void searchPath()
 	{
 		Stack<Cell> stack = new Stack<>();
-		cell = maze[0][0];
+		Cell cell = maze[0][0];
 		cell.setVisited(true);
 		stack.push(cell);
 
 		while (stack.size() < (getHeight() * getWidth()))
 		{
-			List<Cell> neighbors = getNeighbors(cell);
+			List<Cell> neighbors = getUnvisitedNeighbors(cell);
 			Cell nextCell = neighbors.get(0);
 
 			if(!nextCell.isVisited())
@@ -107,7 +107,7 @@ public class Maze
 				nextCell.setVisited(true);
 				breakWalls(cell, nextCell);
 				stack.push(nextCell);
-				cell = getNeighbors(cell).get(0);
+				cell = getUnvisitedNeighbors(cell).get(0);
 			}
 			else if (!stack.isEmpty())
 			{
@@ -117,7 +117,7 @@ public class Maze
 
 /*		cell = maze[0][0];
 		cell.setVisited(true);
-		List<Cell> neighbors = getNeighbors(cell);
+		List<Cell> neighbors = getUnvisitedNeighbors(cell);
 
 		for (int i = 0; i < neighbors.size(); i++)
 		{
@@ -136,7 +136,7 @@ public class Maze
 		while (!stack.isEmpty())
 		{
 			Cell currentCell = stack.pop();
-			List<Cell> neighbors = getNeighbors(currentCell);
+			List<Cell> neighbors = getUnvisitedNeighbors(currentCell);
 
 			if (!neighbors.isEmpty())
 			{
@@ -165,9 +165,6 @@ public class Maze
 	@Override
 	public String toString()
 	{
-		//don't call in this method
-		searchPath(maze[0][0]);
-
 		StringBuilder display = new StringBuilder();
 
 		for (int i = 0; i < width; i++)
