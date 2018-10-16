@@ -96,13 +96,16 @@ public class Maze
 		Stack<Cell> stack = new Stack<>();
 		Cell cell = maze[0][0];
 
+		//starting cell
 		cell.setVisited(true);
 		stack.push(cell);
 		visitedCellCount++;
 
+		//loop through whole maze
 		while (visitedCellCount < (getHeight() * getWidth()))
 		{
 			List<Cell> neighbors = getUnvisitedNeighbors(cell);
+			//if there are valid neighbors, visit them, break walls, push them onto stack, and set the next cell
 			if (neighbors.size() > 0)
 			{
 				Cell nextCell = neighbors.get(0);
@@ -114,7 +117,9 @@ public class Maze
 					stack.push(nextCell);
 					cell = nextCell;
 				}
-			} else
+			}
+			//if there are no valid neighbors, pop a cell off the stack and go back and try finding its valid neighbors
+			else
 			{
 				cell = stack.pop();
 			}
@@ -122,6 +127,7 @@ public class Maze
 	}
 
 	@Override
+	//print maze 
 	public String toString()
 	{
 		StringBuilder display = new StringBuilder();
