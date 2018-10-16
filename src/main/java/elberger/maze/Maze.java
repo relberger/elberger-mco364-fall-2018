@@ -95,30 +95,35 @@ public class Maze
 		int visitedCellCount = 0;
 		Stack<Cell> stack = new Stack<>();
 		Cell cell = maze[0][0];
-		List<Cell> neighbors = getUnvisitedNeighbors(cell);
 
 		cell.setVisited(true);
 		stack.push(cell);
 		visitedCellCount++;
 
-		while (visitedCellCount < (getHeight() * getWidth()) && neighbors.size() > 0)
+		while (visitedCellCount < (getHeight() * getWidth()))
 		{
-			Cell nextCell = neighbors.get(0);
-			if (!nextCell.isVisited())
+			List<Cell> neighbors = getUnvisitedNeighbors(cell);
+			if (neighbors.size() > 0)
 			{
-				nextCell.setVisited(true);
-				visitedCellCount++;
-				breakWalls(cell, nextCell);
-				stack.push(nextCell);
-				if (neighbors.size() > 0)
+				Cell nextCell = neighbors.get(0);
+				if (!nextCell.isVisited())
 				{
+					nextCell.setVisited(true);
+					visitedCellCount++;
+					breakWalls(cell, nextCell);
+					stack.push(nextCell);
 					cell = nextCell;
-				}
-				else
-				{
-					cell = stack.pop();
+
 				}
 			}
+			else
+			{
+				cell = stack.pop();
+			}
+			/*else
+			{
+				cell = stack.pop();
+			}*/
 		}
 
 			/*else if (!stack.isEmpty())
