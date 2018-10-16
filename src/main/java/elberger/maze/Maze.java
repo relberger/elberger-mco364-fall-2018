@@ -107,7 +107,14 @@ public class Maze
 				nextCell.setVisited(true);
 				breakWalls(cell, nextCell);
 				stack.push(nextCell);
-				cell = getUnvisitedNeighbors(cell).get(0);
+				if (getUnvisitedNeighbors(cell).size() > 0)
+				{
+					cell = getUnvisitedNeighbors(cell).get(0);
+				}
+				else
+				{
+					break;
+				}
 			}
 			else if (!stack.isEmpty())
 			{
