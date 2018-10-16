@@ -35,31 +35,31 @@ public class Maze
 
 	public List<Cell> getNeighbors(Cell currentCell)
 	{
-		List<Cell> neighbors = new ArrayList<>();
+		List<Cell> unvisitedNeighbors = new ArrayList<>();
 
 		//add north neighbor
-		if (currentCell.getY() != 0)
+		if (currentCell.getY() != 0 && !maze[currentCell.getX()][currentCell.getY() - 1].isVisited())
 		{
-			neighbors.add(maze[currentCell.getX()][currentCell.getY() - 1]);
+			unvisitedNeighbors.add(maze[currentCell.getX()][currentCell.getY() - 1]);
 		}
 		//get south neighbor
-		if (currentCell.getY() < (getHeight() - 1))
+		if (currentCell.getY() < (getHeight() - 1) && !maze[currentCell.getX()][currentCell.getY() + 1].isVisited())
 		{
-			neighbors.add(maze[currentCell.getX()][currentCell.getY() + 1]);
+			unvisitedNeighbors.add(maze[currentCell.getX()][currentCell.getY() + 1]);
 		}
 		//get west neighbor
-		if (currentCell.getX() != 0)
+		if (currentCell.getX() != 0 && !maze[currentCell.getX() - 1][currentCell.getY()].isVisited())
 		{
-			neighbors.add(maze[currentCell.getX() - 1][currentCell.getY()]);
+			unvisitedNeighbors.add(maze[currentCell.getX() - 1][currentCell.getY()]);
 		}
 		//get east neighbor
-		if (currentCell.getX() < (getWidth() - 1))
+		if (currentCell.getX() < (getWidth() - 1) && !maze[currentCell.getX() + 1][currentCell.getY()].isVisited())
 		{
-			neighbors.add(maze[currentCell.getX() + 1][currentCell.getY()]);
+			unvisitedNeighbors.add(maze[currentCell.getX() + 1][currentCell.getY()]);
 		}
 
-		Collections.shuffle(neighbors);
-		return neighbors;
+		Collections.shuffle(unvisitedNeighbors);
+		return unvisitedNeighbors;
 	}
 
 	private void breakWalls(Cell currentCell, Cell nextCell)
@@ -93,36 +93,79 @@ public class Maze
 	public void searchPath(Cell cell)
 	{
 		Stack<Cell> stack = new Stack<>();
-		stack.push(cell);
+		cell = maze[0][0];
 		cell.setVisited(true);
+		stack.push(cell);
+
+		while (stack.size() < (getHeight() * getWidth()))
+		{
+			List<Cell> neighbors = getNeighbors(cell);
+			Cell nextCell = neighbors.get(0);
+
+			if(!nextCell.isVisited())
+			{
+				nextCell.setVisited(true);
+				breakWalls(cell, nextCell);
+				stack.push(nextCell);
+				cell = getNeighbors(cell).get(0);
+			}
+			else if (!stack.isEmpty())
+			{
+				cell = stack.pop();
+			}
+		}
+
+/*		cell = maze[0][0];
+		cell.setVisited(true);
+		List<Cell> neighbors = getNeighbors(cell);
+
+		for (int i = 0; i < neighbors.size(); i++)
+		{
+			if (!neighbors.get(i).isVisited())
+			{
+				searchPath(neighbors.get(i));
+			}
+		}*/
+
+		/*Stack<Cell> stack = new Stack<>();
+		//Cell startCell = maze[0][0];
+		Cell startCell = cell;
+		stack.push(startCell);
+		startCell.setVisited(true);
 
 		while (!stack.isEmpty())
 		{
 			Cell currentCell = stack.pop();
-			Cell nextCell = getNeighbors(currentCell).get(0);
+			List<Cell> neighbors = getNeighbors(currentCell);
 
-			if (!nextCell.isVisited())
+			if (!neighbors.isEmpty())
 			{
-				nextCell.setVisited(true);
-				breakWalls(currentCell, nextCell);
-				stack.addAll(getNeighbors(currentCell));
-			}
-			else
-			{
-				for (int i = 0; i < getNeighbors(currentCell).size(); i++)
+				Cell nextCell = neighbors.get(0);
+
+				if (!nextCell.isVisited())
 				{
-					if (getNeighbors(currentCell).get(i).isVisited())
+					nextCell.setVisited(true);
+					breakWalls(currentCell, nextCell);
+					stack.push(nextCell);
+				}
+				else
+				{
+					for (int i = 0; i < neighbors.size(); i++)
 					{
-						stack.remove(getNeighbors(currentCell).get(i));
+						if (neighbors.get(i).isVisited())
+						{
+							i++;
+						}
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	@Override
 	public String toString()
 	{
+		//don't call in this method
 		searchPath(maze[0][0]);
 
 		StringBuilder display = new StringBuilder();
