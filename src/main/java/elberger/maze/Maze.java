@@ -109,14 +109,11 @@ public class Maze
 			if (neighbors.size() > 0)
 			{
 				Cell nextCell = neighbors.get(0);
-				if (!nextCell.isVisited())
-				{
-					nextCell.setVisited(true);
-					visitedCellCount++;
-					breakWalls(cell, nextCell);
-					stack.push(nextCell);
-					cell = nextCell;
-				}
+				nextCell.setVisited(true);
+				visitedCellCount++;
+				breakWalls(cell, nextCell);
+				stack.push(nextCell);
+				cell = nextCell;
 			}
 			//if there are no valid neighbors, pop a cell off the stack and go back and try finding its valid neighbors
 			else
@@ -127,34 +124,35 @@ public class Maze
 	}
 
 	@Override
-	//print maze 
+	//print maze
 	public String toString()
 	{
 		StringBuilder display = new StringBuilder();
 
-		for (int i = 0; i < getWidth(); i++)
+		for (int i = 0; i < getHeight(); i++)
 		{
-			for (int j = 0; j < getHeight(); j++)
+			for (int j = 0; j < getWidth(); j++)
 			{
 				Cell cell = maze[j][i];
 				if (cell.isSouthWall())
 				{
 					display.append("_");
-				} else
+				}
+				else
 				{
 					display.append(" ");
 				}
 				if (cell.isEastWall())
 				{
 					display.append("|");
-				} else
+				}
+				else
 				{
 					display.append(" ");
 				}
 			}
 			display.append("\n");
 		}
-
 		return display.toString();
 	}
 }
