@@ -22,11 +22,12 @@ public class MazeView extends JFrame
 		panel.add(mazeComponent, BorderLayout.CENTER);
 
 		setContentPane(panel);
+
+		addKeyListener(new WalkThroughMaze());
 	}
 
 	public static void main(String[] args)
 	{
 		new MazeView().setVisible(true);
-
 	}
 }
