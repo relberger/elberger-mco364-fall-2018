@@ -1,16 +1,20 @@
 package elberger.maze;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class MazeComponent extends JComponent
 {
 	private Maze maze;
+	private Player player;
 	private int cellWidth;
 	private int cellHeight;
+
+	public MazeComponent(Maze maze, Player player)
+	{
+		this.maze = maze;
+		this.player = player;
+	}
 
 	@Override
 	protected void paintComponent(Graphics g)
@@ -18,10 +22,8 @@ public class MazeComponent extends JComponent
 		super.paintComponent(g);
 		g.setColor(Color.black);
 
-		maze = new Maze(20, 15);
-		maze.searchPath();
-
 		drawMaze(g);
+		drawPlayer(g, 0, 0);
 	}
 
 	public void drawMaze(Graphics g)
@@ -48,5 +50,16 @@ public class MazeComponent extends JComponent
 				}
 			}
 		}
+	}
+
+	public void drawPlayer(Graphics g, int x, int y)
+	{
+		g.setColor(Color.ORANGE);
+		g.fillRect(player.getX(), player.getY(), getWidth()/maze.getWidth(), getHeight()/maze.getHeight());
+	}
+
+	public Player getPlayer()
+	{
+		return player;
 	}
 }
