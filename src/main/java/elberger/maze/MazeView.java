@@ -59,7 +59,7 @@ public class MazeView extends JFrame
 
 		private void goUp()
 		{
-			if (!maze.getMaze()[player.getX() / 25][player.getY() / 35].isNorthWall())
+			if (!maze.getMaze()[player.getX() / (getWidth() / maze.getWidth())][player.getY() / (getHeight() / maze.getHeight())].isNorthWall())
 			{
 				mazeComponent.getPlayer().setX(player.getX());
 				mazeComponent.getPlayer().setY(player.getY() - (getHeight() / maze.getHeight()));
@@ -69,7 +69,7 @@ public class MazeView extends JFrame
 
 		private void goDown()
 		{
-			if (!maze.getMaze()[player.getX() / 25][player.getY() / 35].isSouthWall())
+			if (!maze.getMaze()[player.getX() / (getWidth() / maze.getWidth())][player.getY() / (getHeight() / maze.getHeight())].isSouthWall())
 			{
 				mazeComponent.getPlayer().setX(player.getX());
 				mazeComponent.getPlayer().setY(player.getY() + (getHeight() / maze.getHeight()));
@@ -79,7 +79,7 @@ public class MazeView extends JFrame
 
 		private void goLeft()
 		{
-			if (!maze.getMaze()[player.getX() / 25][player.getY() / 35].isWestWall())
+			if (!maze.getMaze()[player.getX() / (getWidth() / maze.getWidth())][player.getY() / (getHeight() / maze.getHeight())].isWestWall())
 			{
 				mazeComponent.getPlayer().setX(player.getX() - (getWidth() / maze.getWidth()));
 				mazeComponent.getPlayer().setY(player.getY());
@@ -89,7 +89,7 @@ public class MazeView extends JFrame
 
 		private void goRight()
 		{
-			if (!maze.getMaze()[player.getX() / 25][player.getY() / 35].isEastWall())
+			if (!maze.getMaze()[player.getX() / (getWidth() / maze.getWidth())][player.getY() / (getHeight() / maze.getHeight())].isEastWall())
 			{
 				mazeComponent.getPlayer().setX(player.getX() + (getWidth() / maze.getWidth()));
 				mazeComponent.getPlayer().setY(player.getY());
