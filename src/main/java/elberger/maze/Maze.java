@@ -33,6 +33,11 @@ public class Maze
 		return height;
 	}
 
+	public Cell[][] getMaze()
+	{
+		return maze;
+	}
+
 	public List<Cell> getUnvisitedNeighbors(Cell currentCell)
 	{
 		List<Cell> unvisitedNeighbors = new ArrayList<>();
