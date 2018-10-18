@@ -47,17 +47,17 @@ public class Maze
 		{
 			unvisitedNeighbors.add(maze[currentCell.getX()][currentCell.getY() - 1]);
 		}
-		//get south neighbor
+		//getCell south neighbor
 		if (currentCell.getY() < (getHeight() - 1) && !maze[currentCell.getX()][currentCell.getY() + 1].isVisited())
 		{
 			unvisitedNeighbors.add(maze[currentCell.getX()][currentCell.getY() + 1]);
 		}
-		//get west neighbor
+		//getCell west neighbor
 		if (currentCell.getX() != 0 && !maze[currentCell.getX() - 1][currentCell.getY()].isVisited())
 		{
 			unvisitedNeighbors.add(maze[currentCell.getX() - 1][currentCell.getY()]);
 		}
-		//get east neighbor
+		//getCell east neighbor
 		if (currentCell.getX() < (getWidth() - 1) && !maze[currentCell.getX() + 1][currentCell.getY()].isVisited())
 		{
 			unvisitedNeighbors.add(maze[currentCell.getX() + 1][currentCell.getY()]);
