@@ -55,7 +55,7 @@ public class MazeComponent extends JComponent
 	public void drawPlayer(Graphics g, int x, int y)
 	{
 		g.setColor(Color.ORANGE);
-		g.fillRect(player.getX(), player.getY(), getWidth()/maze.getWidth(), getHeight()/maze.getHeight());
+		g.fillRect(player.getX(), player.getY(), getWidth() / maze.getWidth(), getHeight() / maze.getHeight());
 	}
 
 	public Player getPlayer()

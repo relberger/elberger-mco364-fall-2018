@@ -24,7 +24,7 @@ public class MazeView extends JFrame
 
 		maze = new Maze(20, 15);
 		maze.searchPath();
-		player = new Player(0,0);
+		player = new Player(0, 0);
 		mazeComponent = new MazeComponent(maze, player);
 
 		panel.add(mazeComponent, BorderLayout.CENTER);
@@ -39,19 +39,19 @@ public class MazeView extends JFrame
 		@Override
 		public void keyPressed(KeyEvent key)
 		{
-			if(key.getKeyCode() == KeyEvent.VK_UP && player.getY() != 0)
+			if (key.getKeyCode() == KeyEvent.VK_UP && player.getY() != 0)
 			{
 				goUp();
 			}
-			if(key.getKeyCode() == KeyEvent.VK_DOWN && player.getY() != maze.getHeight())
+			if (key.getKeyCode() == KeyEvent.VK_DOWN && player.getY() != maze.getHeight())
 			{
 				goDown();
 			}
-			if(key.getKeyCode() == KeyEvent.VK_LEFT && player.getX() != 0)
+			if (key.getKeyCode() == KeyEvent.VK_LEFT && player.getX() != 0)
 			{
 				goLeft();
 			}
-			if(key.getKeyCode() == KeyEvent.VK_RIGHT && player.getX() != maze.getWidth())
+			if (key.getKeyCode() == KeyEvent.VK_RIGHT && player.getX() != maze.getWidth())
 			{
 				goRight();
 			}
@@ -62,17 +62,17 @@ public class MazeView extends JFrame
 			if (!maze.getMaze()[player.getX() / 25][player.getY() / 35].isNorthWall())
 			{
 				mazeComponent.getPlayer().setX(player.getX());
-				mazeComponent.getPlayer().setY(player.getY() - (getHeight()/maze.getHeight()));
+				mazeComponent.getPlayer().setY(player.getY() - (getHeight() / maze.getHeight()));
 				mazeComponent.repaint();
 			}
 		}
 
 		private void goDown()
 		{
-			if(!maze.getMaze()[player.getX() / 25][player.getY() / 35].isSouthWall())
+			if (!maze.getMaze()[player.getX() / 25][player.getY() / 35].isSouthWall())
 			{
 				mazeComponent.getPlayer().setX(player.getX());
-				mazeComponent.getPlayer().setY(player.getY() + (getHeight()/maze.getHeight()));
+				mazeComponent.getPlayer().setY(player.getY() + (getHeight() / maze.getHeight()));
 				mazeComponent.repaint();
 			}
 		}
@@ -81,7 +81,7 @@ public class MazeView extends JFrame
 		{
 			if (!maze.getMaze()[player.getX() / 25][player.getY() / 35].isWestWall())
 			{
-				mazeComponent.getPlayer().setX(player.getX() - (getWidth()/maze.getWidth()));
+				mazeComponent.getPlayer().setX(player.getX() - (getWidth() / maze.getWidth()));
 				mazeComponent.getPlayer().setY(player.getY());
 				mazeComponent.repaint();
 			}
@@ -91,7 +91,7 @@ public class MazeView extends JFrame
 		{
 			if (!maze.getMaze()[player.getX() / 25][player.getY() / 35].isEastWall())
 			{
-				mazeComponent.getPlayer().setX(player.getX() + (getWidth()/maze.getWidth()));
+				mazeComponent.getPlayer().setX(player.getX() + (getWidth() / maze.getWidth()));
 				mazeComponent.getPlayer().setY(player.getY());
 				mazeComponent.repaint();
 			}
