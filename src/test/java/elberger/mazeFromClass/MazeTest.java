@@ -83,8 +83,8 @@ public class MazeTest
 		// then
 		assertNotNull(neighbor);
 		assertFalse(neighbor.isVisited());
-		int x = neighbor.getX();
-		int y = neighbor.getY();
+		int x = neighbor.getColumn();
+		int y = neighbor.getRow();
 		// (0,1), (1,0), (2,1), (1,2)
 		List<Cell> possibilities = new ArrayList<>();
 		possibilities.add(maze.getCell(0, 1));

@@ -9,9 +9,9 @@ public class MazeBuilder
 	private static final Random R = new Random();
 	private Maze maze;
 
-	public MazeBuilder(int width, int height)
+	public MazeBuilder(int columns, int rows)
 	{
-		maze = new Maze(width, height);
+		maze = new Maze(columns, rows);
 	}
 
 	public MazeBuilder randomize()
@@ -28,7 +28,7 @@ public class MazeBuilder
 			cell.setVisited(true);
 
 			Cell neighbor = maze.getNotVisitedNeighbor(
-					cell.getX(), cell.getY());
+					cell.getColumn(), cell.getRow());
 
 			if (neighbor == null)
 			{

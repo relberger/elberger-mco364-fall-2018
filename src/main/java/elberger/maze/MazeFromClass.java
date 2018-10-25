@@ -77,8 +77,8 @@ public class MazeFromClass
 	{
 		List<CellFromClass> list = new ArrayList<>();
 
-		/*int column = cell.getX();
-		int row = cell.getY();*/
+		/*int column = cell.getColumn();
+		int row = cell.getRow();*/
 
 		//north
 		if(row >= 0 && !cells[column][row - 1].isVisited())

@@ -5,32 +5,32 @@ import javax.annotation.Nonnull;
 public class Cell
 {
 
-	private int x;
-	private int y;
+	private int column;
+	private int row;
 	private boolean visited;
 	private boolean northWall;
 	private boolean southWall;
 	private boolean eastWall;
 	private boolean westWall;
 
-	public Cell(int x, int y)
+	public Cell(int column, int row)
 	{
-		this.x = x;
-		this.y = y;
+		this.column = column;
+		this.row = row;
 		northWall = true;
 		southWall = true;
 		eastWall = true;
 		westWall = true;
 	}
 
-	public int getX()
+	public int getColumn()
 	{
-		return x;
+		return column;
 	}
 
-	public int getY()
+	public int getRow()
 	{
-		return y;
+		return row;
 	}
 
 	public boolean isVisited()
@@ -92,30 +92,30 @@ public class Cell
 	public void removeWalls(@Nonnull Cell neighbor)
 	{
 
-		if (x == neighbor.x)
+		if (column == neighbor.column)
 		{
-			if (y == neighbor.y + 1)
+			if (row == neighbor.row + 1)
 			{
 				// SOUTH
-				southWall = false;
-				neighbor.northWall = false;
-			}
-			else if (y == neighbor.y - 1)
-			{
-				// NORTH
 				northWall = false;
 				neighbor.southWall = false;
 			}
+			else if (row == neighbor.row - 1)
+			{
+				// NORTH
+				southWall = false;
+				neighbor.northWall = false;
+			}
 		}
-		if (y == neighbor.y)
+		if (row == neighbor.row)
 		{
-			if (x == neighbor.x + 1)
+			if (column == neighbor.column + 1)
 			{
 				// EAST
 				eastWall = false;
 				neighbor.westWall = false;
 			}
-			else if (x == neighbor.x - 1)
+			else if (column == neighbor.column - 1)
 			{
 				westWall = false;
 				neighbor.eastWall = false;
