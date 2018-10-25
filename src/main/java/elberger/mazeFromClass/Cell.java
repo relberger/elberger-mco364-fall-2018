@@ -107,19 +107,22 @@ public class Cell
 				neighbor.northWall = false;
 			}
 		}
-		if (row == neighbor.row)
+		else if (row == neighbor.row)
 		{
-			if (column == neighbor.column + 1)
+			if (column == neighbor.column - 1)
 			{
 				// EAST
 				eastWall = false;
 				neighbor.westWall = false;
 			}
-			else if (column == neighbor.column - 1)
+			else if (column == neighbor.column + 1)
 			{
 				westWall = false;
 				neighbor.eastWall = false;
 			}
+		}
+		else {
+			throw new IllegalStateException("Trying to remove walls of cells that aren't neighbors");
 		}
 
 	}
