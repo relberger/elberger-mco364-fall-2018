@@ -22,11 +22,11 @@ public class Maze
 		this.rows = rows;
 		cells = new Cell[columns][rows];
 
-		for (int i = 0; i < columns; i++)
+		for (int c = 0; c < columns; c++)
 		{
-			for (int j = 0; j < rows; j++)
+			for (int r = 0; r < rows; r++)
 			{
-				cells[i][j] = new Cell(i, j);
+				cells[c][r] = new Cell(c, r);
 			}
 		}
 	}
@@ -35,11 +35,11 @@ public class Maze
 	{
 		StringBuilder builder = new StringBuilder();
 
-		for (int i = 0; i < columns; i++)
+		for (int c = 0; c < columns; c++)
 		{
-			for (int j = 0; j < rows; j++)
+			for (int r = 0; r < rows; r++)
 			{
-				Cell cell = cells[j][i];
+				Cell cell = cells[r][c];
 				builder.append(cell);
 			}
 			builder.append("\n");
@@ -59,9 +59,9 @@ public class Maze
 	}
 
 	@Nullable
-	public Cell getNotVisitedNeighbor(int row, int column)
+	public Cell getNotVisitedNeighbor(int column, int row)
 	{
-		List<Cell> list = getAllNotVisitedNeighbors(row, column);
+		List<Cell> list = getAllNotVisitedNeighbors(column, row);
 
 		if (list.isEmpty())
 		{
@@ -73,7 +73,7 @@ public class Maze
 	}
 
 	@VisibleForTesting
-	List<Cell> getAllNotVisitedNeighbors(int row, int column)
+	List<Cell> getAllNotVisitedNeighbors(int column, int row)
 	{
 		List<Cell> list = new ArrayList<>();
 
