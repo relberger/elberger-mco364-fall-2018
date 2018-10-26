@@ -64,13 +64,13 @@ public class EarthquakeController3
 			JTextComponent magnitudeField, 
 			JTextComponent locationField)
 	{
-		List<Earthquake3> earthquake = feed.getFeatures()
+		/*List<Earthquake3> earthquake = feed.getFeatures()
 				.stream()
 				.filter(e -> e.getProperties().getMag() >= 1.2)
 				.sorted(Comparator.comparing(Earthquake3::getMagnitude).reversed())
 				.limit(5)
 				.collect(Collectors.toList());
-
+*/
 		/*String magnitude = String.valueOf(properties.getMag());
 		String location = String.valueOf(properties.getPlace());
 		magnitudeField.setText(magnitude);
