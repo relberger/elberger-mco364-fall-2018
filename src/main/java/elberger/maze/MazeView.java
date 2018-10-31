@@ -59,40 +59,60 @@ public class MazeView extends JFrame
 
 		private void goUp()
 		{
-			if (!maze.getMaze()[player.getX() / (getWidth() / maze.getWidth())][player.getY() / (getHeight() / maze.getHeight())].isNorthWall())
+			int x = player.getX();
+			int y = player.getY();
+			int cellWidth = getWidth() / maze.getWidth();
+			int cellHeight = getHeight() / maze.getHeight();
+
+			if (!maze.getMaze()[x / cellWidth][y / cellHeight].isNorthWall())
 			{
-				mazeComponent.getPlayer().setX(player.getX());
-				mazeComponent.getPlayer().setY(player.getY() - (getHeight() / maze.getHeight()));
+				mazeComponent.getPlayer().setX(x);
+				mazeComponent.getPlayer().setY(y - cellHeight);
 				mazeComponent.repaint();
 			}
 		}
 
 		private void goDown()
 		{
-			if (!maze.getMaze()[player.getX() / (getWidth() / maze.getWidth())][player.getY() / (getHeight() / maze.getHeight())].isSouthWall())
+			int x = player.getX();
+			int y = player.getY();
+			int cellWidth = getWidth() / maze.getWidth();
+			int cellHeight = getHeight() / maze.getHeight();
+
+			if (!maze.getMaze()[x / cellWidth][y / cellHeight].isSouthWall())
 			{
-				mazeComponent.getPlayer().setX(player.getX());
-				mazeComponent.getPlayer().setY(player.getY() + (getHeight() / maze.getHeight()));
+				mazeComponent.getPlayer().setX(x);
+				mazeComponent.getPlayer().setY(y + cellHeight);
 				mazeComponent.repaint();
 			}
 		}
 
 		private void goLeft()
 		{
-			if (!maze.getMaze()[player.getX() / (getWidth() / maze.getWidth())][player.getY() / (getHeight() / maze.getHeight())].isWestWall())
+			int x = player.getX();
+			int y = player.getY();
+			int cellWidth = getWidth() / maze.getWidth();
+			int cellHeight = getHeight() / maze.getHeight();
+
+			if (!maze.getMaze()[x / cellWidth][y / cellHeight].isWestWall())
 			{
-				mazeComponent.getPlayer().setX(player.getX() - (getWidth() / maze.getWidth()));
-				mazeComponent.getPlayer().setY(player.getY());
+				mazeComponent.getPlayer().setX(x - cellWidth);
+				mazeComponent.getPlayer().setY(y);
 				mazeComponent.repaint();
 			}
 		}
 
 		private void goRight()
 		{
-			if (!maze.getMaze()[player.getX() / (getWidth() / maze.getWidth())][player.getY() / (getHeight() / maze.getHeight())].isEastWall())
+			int x = player.getX();
+			int y = player.getY();
+			int cellWidth = getWidth() / maze.getWidth();
+			int cellHeight = getHeight() / maze.getHeight();
+
+			if (!maze.getMaze()[x / cellWidth][y / cellHeight].isEastWall())
 			{
-				mazeComponent.getPlayer().setX(player.getX() + (getWidth() / maze.getWidth()));
-				mazeComponent.getPlayer().setY(player.getY());
+				mazeComponent.getPlayer().setX(x + cellWidth);
+				mazeComponent.getPlayer().setY(y);
 				mazeComponent.repaint();
 			}
 		}
