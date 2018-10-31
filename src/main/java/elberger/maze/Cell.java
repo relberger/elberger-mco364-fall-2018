@@ -1,12 +1,14 @@
 package elberger.maze;
 
-import java.util.Collections;
-import java.util.LinkedList;
-
 public class Cell
 {
 	private int x;
 	private int y;
+	private boolean visited = false;
+	private boolean northWall = true;
+	private boolean southWall = true;
+	private boolean eastWall = true;
+	private boolean westWall = true;
 
 	public Cell(int x, int y)
 	{
@@ -19,18 +21,58 @@ public class Cell
 		return x;
 	}
 
-	public void setX(int x)
-	{
-		this.x = x;
-	}
-
 	public int getY()
 	{
 		return y;
 	}
 
-	public void setY(int y)
+	public boolean isVisited()
 	{
-		this.y = y;
+		return visited;
+	}
+
+	public void setVisited(boolean visited)
+	{
+		this.visited = visited;
+	}
+
+	public boolean isNorthWall()
+	{
+		return northWall;
+	}
+
+	public void setNorthWall(boolean northWall)
+	{
+		this.northWall = northWall;
+	}
+
+	public boolean isSouthWall()
+	{
+		return southWall;
+	}
+
+	public void setSouthWall(boolean southWall)
+	{
+		this.southWall = southWall;
+	}
+
+	public boolean isEastWall()
+	{
+		return eastWall;
+	}
+
+	public void setEastWall(boolean eastWall)
+	{
+		this.eastWall = eastWall;
+	}
+
+	public boolean isWestWall()
+	{
+		return westWall;
+	}
+
+	public void setWestWall(boolean westWall)
+	{
+		this.westWall = westWall;
 	}
 }

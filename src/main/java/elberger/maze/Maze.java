@@ -4,145 +4,160 @@ import java.util.*;
 
 public class Maze
 {
-	private int x;
-	private int y;
-	private Cell cell;
-	private String maze[][];
-	private LinkedList<Cell> visited = new LinkedList<Cell>();
-	private LinkedList<Cell> neighbors = new LinkedList<Cell>();
-	private Stack stack = new Stack();
+	private int width;
+	private int height;
+	private Cell maze[][];
 
-	public Maze(int x, int y)
+	public Maze(int width, int height)
 	{
-		this.x = x;
-		this.y = y;
-		maze = new String[x][y];
-	}
+		this.width = width;
+		this.height = height;
+		maze = new Cell[width][height];
 
-	public String[][] fillAllMazeCells()
-	{
-		for (int x = 0; x < this.x; x++)
+		for (int i = 0; i < width; i++)
 		{
-			for (int y = 0; y < this.y; y++)
+			for (int j = 0; j < height; j++)
 			{
-				maze[x][y] = "_";
+				maze[i][j] = new Cell(i, j);
 			}
 		}
+	}
+
+	public int getWidth()
+	{
+		return width;
+	}
+
+	public int getHeight()
+	{
+		return height;
+	}
+
+	public Cell[][] getMaze()
+	{
 		return maze;
 	}
 
-	public int getX()
+	public List<Cell> getUnvisitedNeighbors(Cell currentCell)
 	{
-		return x;
-	}
+		List<Cell> unvisitedNeighbors = new ArrayList<>();
 
-	public int getY()
-	{
-		return y;
-	}
-
-	public LinkedList<Cell> getNeighbors(Cell cell)
-	{
-		if (cell.getX() == 0)
+		//add north neighbor
+		if (currentCell.getY() != 0 && !maze[currentCell.getX()][currentCell.getY() - 1].isVisited())
 		{
-			Cell eastNeighbor = new Cell(cell.getX(), cell.getY() - 1);
-			Cell westNeighbor = new Cell(cell.getX(), cell.getY() + 1);
-			Cell southNeighbor = new Cell(cell.getX() + 1, cell.getY());
-
-			neighbors.push(eastNeighbor);
-			neighbors.push(westNeighbor);
-			neighbors.push(southNeighbor);
+			unvisitedNeighbors.add(maze[currentCell.getX()][currentCell.getY() - 1]);
+		}
+		//getCell south neighbor
+		if (currentCell.getY() < (getHeight() - 1) && !maze[currentCell.getX()][currentCell.getY() + 1].isVisited())
+		{
+			unvisitedNeighbors.add(maze[currentCell.getX()][currentCell.getY() + 1]);
+		}
+		//getCell west neighbor
+		if (currentCell.getX() != 0 && !maze[currentCell.getX() - 1][currentCell.getY()].isVisited())
+		{
+			unvisitedNeighbors.add(maze[currentCell.getX() - 1][currentCell.getY()]);
+		}
+		//getCell east neighbor
+		if (currentCell.getX() < (getWidth() - 1) && !maze[currentCell.getX() + 1][currentCell.getY()].isVisited())
+		{
+			unvisitedNeighbors.add(maze[currentCell.getX() + 1][currentCell.getY()]);
 		}
 
-		else if (cell.getY() == 0)
-		{
-			Cell northNeighbor = new Cell(cell.getX() - 1, cell.getY());
-			Cell westNeighbor = new Cell(cell.getX(), cell.getY() + 1);
-			Cell southNeighbor = new Cell(cell.getX() + 1, cell.getY());
-
-			neighbors.push(northNeighbor);
-			neighbors.push(westNeighbor);
-			neighbors.push(southNeighbor);
-		}
-
-		else if (cell.getY() == y)
-		{
-			Cell northNeighbor = new Cell(cell.getX() - 1, cell.getY());
-			Cell eastNeighbor = new Cell(cell.getX(), cell.getY() - 1);
-			Cell southNeighbor = new Cell(cell.getX() + 1, cell.getY());
-
-			neighbors.push(northNeighbor);
-			neighbors.push(eastNeighbor);
-			neighbors.push(southNeighbor);
-		}
-
-		else if (cell.getX() == x)
-		{
-			Cell northNeighbor = new Cell(cell.getX() - 1, cell.getY());
-			Cell eastNeighbor = new Cell(cell.getX(), cell.getY() - 1);
-			Cell westNeighbor = new Cell(cell.getX(), cell.getY() + 1);
-
-			neighbors.push(northNeighbor);
-			neighbors.push(eastNeighbor);
-			neighbors.push(westNeighbor);
-		}
-
-		else
-		{
-			Cell northNeighbor = new Cell(cell.getX() - 1, cell.getY());
-			Cell eastNeighbor = new Cell(cell.getX(), cell.getY() - 1);
-			Cell westNeighbor = new Cell(cell.getX(), cell.getY() + 1);
-			Cell southNeighbor = new Cell(cell.getX() + 1, cell.getY());
-
-			neighbors.push(northNeighbor);
-			neighbors.push(eastNeighbor);
-			neighbors.push(westNeighbor);
-			neighbors.push(southNeighbor);
-		}
-
-		Collections.shuffle(neighbors);
-		return neighbors;
+		Collections.shuffle(unvisitedNeighbors);
+		return unvisitedNeighbors;
 	}
 
-	public void setNeighbors(LinkedList<Cell> neighbors)
+	private void breakWalls(Cell currentCell, Cell nextCell)
 	{
-		this.neighbors = neighbors;
+		//neighbor = north
+		if (currentCell.getY() == nextCell.getY() + 1)
+		{
+			currentCell.setNorthWall(false);
+			nextCell.setSouthWall(false);
+		}
+		//neighbor = south
+		else if (currentCell.getY() == nextCell.getY() - 1)
+		{
+			currentCell.setSouthWall(false);
+			nextCell.setNorthWall(false);
+		}
+		//neighbor = east
+		else if (currentCell.getX() == nextCell.getX() - 1)
+		{
+			currentCell.setEastWall(false);
+			nextCell.setWestWall(false);
+		}
+		//neighbor = west
+		else if (currentCell.getX() == nextCell.getX() + 1)
+		{
+			currentCell.setWestWall(false);
+			nextCell.setEastWall(false);
+		}
 	}
 
-
-	public Cell startingCell()
+	public void searchPath()
 	{
-		Random x = new Random();
-		Random y = new Random();
-		Cell cell = new Cell(x.nextInt(getX()), y.nextInt(getY()));
-		return cell;
-	}
+		int visitedCellCount = 0;
+		Stack<Cell> stack = new Stack<>();
+		Cell cell = maze[0][0];
 
-	public void searchPath(Cell cell)
-	{
+		//starting cell
+		cell.setVisited(true);
 		stack.push(cell);
-		visited.push(cell);
+		visitedCellCount++;
 
-		while (!stack.isEmpty())
+		//loop through whole maze
+		while (visitedCellCount < (getHeight() * getWidth()))
 		{
-			Cell currentCell = (Cell) stack.peek();
-			Cell nextCell = getNeighbors(currentCell).getFirst();
-			if (!visited.contains(nextCell))
+			List<Cell> neighbors = getUnvisitedNeighbors(cell);
+			//if there are valid neighbors, visit them, break walls, push them onto stack, and set the next cell
+			if (neighbors.size() > 0)
 			{
-				visited.push(nextCell);
-				maze[nextCell.getX()][nextCell.getY()] = ".";
+				Cell nextCell = neighbors.get(0);
+				nextCell.setVisited(true);
+				visitedCellCount++;
+				breakWalls(cell, nextCell);
 				stack.push(nextCell);
+				cell = nextCell;
 			}
+			//if there are no valid neighbors, pop a cell off the stack and go back and try finding its valid neighbors
 			else
 			{
-				stack.pop();
-				searchPath(nextCell);
+				cell = stack.pop();
 			}
 		}
 	}
 
-	public void generatePath()
+	@Override
+	//print maze
+	public String toString()
 	{
-		searchPath(startingCell());
+		StringBuilder display = new StringBuilder();
+
+		for (int i = 0; i < getHeight(); i++)
+		{
+			for (int j = 0; j < getWidth(); j++)
+			{
+				Cell cell = maze[j][i];
+				if (cell.isSouthWall())
+				{
+					display.append("_");
+				}
+				else
+				{
+					display.append(" ");
+				}
+				if (cell.isEastWall())
+				{
+					display.append("|");
+				}
+				else
+				{
+					display.append(" ");
+				}
+			}
+			display.append("\n");
+		}
+		return display.toString();
 	}
 }

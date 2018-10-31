@@ -141,8 +141,8 @@ public class EarthquakeView  extends JFrame implements WindowListener
 								.stream()
 								.max(Comparator.comparing(e -> e.getProperties().getMag()));
 							
-							String monthMagValue = String.valueOf(greatestMonth.get().getProperties().getMag());
-							String monthLocValue = String.valueOf(greatestMonth.get().getProperties().getPlace());
+							String monthMagValue = String.valueOf(greatestMonth.getCell().getProperties().getMag());
+							String monthLocValue = String.valueOf(greatestMonth.getCell().getProperties().getPlace());
 							monthMag.setText(monthMagValue);
 							monthLoc.setText(monthLocValue);
 					}
@@ -169,8 +169,8 @@ public class EarthquakeView  extends JFrame implements WindowListener
 								.stream()
 								.max(Comparator.comparing(e -> e.getProperties().getMag()));
 							
-							String weekMagValue = String.valueOf(greatestWeek.get().getProperties().getMag());
-							String weekLocValue = String.valueOf(greatestWeek.get().getProperties().getPlace());
+							String weekMagValue = String.valueOf(greatestWeek.getCell().getProperties().getMag());
+							String weekLocValue = String.valueOf(greatestWeek.getCell().getProperties().getPlace());
 							weekMag.setText(weekMagValue);
 							weekLoc.setText(weekLocValue);
 					}
@@ -197,8 +197,8 @@ public class EarthquakeView  extends JFrame implements WindowListener
 						.stream()
 						.max(Comparator.comparing(e -> e.getProperties().getMag()));
 					
-					String dayMagValue = String.valueOf(greatestDay.get().getProperties().getMag());
-					String dayLocValue = String.valueOf(greatestDay.get().getProperties().getPlace());
+					String dayMagValue = String.valueOf(greatestDay.getCell().getProperties().getMag());
+					String dayLocValue = String.valueOf(greatestDay.getCell().getProperties().getPlace());
 					dayMag.setText(dayMagValue);
 					dayLoc.setText(dayLocValue);
 			}
@@ -225,8 +225,8 @@ public class EarthquakeView  extends JFrame implements WindowListener
 					.stream()
 					.max(Comparator.comparing(e -> e.getProperties().getMag()));
 				
-				String hourMagValue = String.valueOf(greatestHour.get().getProperties().getMag());
-				String hourLocValue = String.valueOf(greatestHour.get().getProperties().getPlace());
+				String hourMagValue = String.valueOf(greatestHour.getCell().getProperties().getMag());
+				String hourLocValue = String.valueOf(greatestHour.getCell().getProperties().getPlace());
 				hourMag.setText(hourMagValue);
 				hourLoc.setText(hourLocValue);
 			}
