@@ -2,8 +2,6 @@ package paint;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 public class PaintFrame extends JFrame
 {
@@ -23,22 +21,7 @@ public class PaintFrame extends JFrame
 		panel.add(canvas, BorderLayout.CENTER);
 
 		setContentPane(panel);
-	}/*
-
-	public class MouseMovement implements MouseMotionListener
-	{
-		@Override
-		public void mouseDragged(MouseEvent e)
-		{
-			canvas.repaint();
-		}
-
-		@Override
-		public void mouseMoved(MouseEvent e)
-		{
-			//System.out.println(getMousePosition());
-		}
-	}*/
+	}
 
 	public static void main(String args[])
 	{
