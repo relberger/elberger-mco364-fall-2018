@@ -22,7 +22,6 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	{
 		super.paintComponent(g);
 		drawCanvas(g);
-		//g.setColor(color);
 
 		for (List<Point> line : lines)
 		{
@@ -75,7 +74,6 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	public void mousePressed(MouseEvent e)
 	{
 		lines.add(new ArrayList<>());
-
 	}
 
 	@Override
