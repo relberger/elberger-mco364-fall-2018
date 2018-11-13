@@ -11,7 +11,6 @@ public class PaintFrame extends JFrame
 	private JButton choosePencil;
 	private JButton chooseRectangle;
 	private Color color;
-	private Point point;
 
 	public PaintFrame()
 	{
@@ -41,13 +40,13 @@ public class PaintFrame extends JFrame
 
 		ActionListener choosingPencil = e ->
 		{
-			//
+			canvas.setTool(Tools.PENCIL);
 		};
 		choosePencil.addActionListener(choosingPencil);
 
 		ActionListener choosingRectangle = e ->
 		{
-			//
+			canvas.setTool(Tools.RECTANGLE);
 		};
 		chooseRectangle.addActionListener(choosingRectangle);
 
