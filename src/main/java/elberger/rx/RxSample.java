@@ -1,17 +1,19 @@
 package elberger.rx;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+/*
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+*/
 
 public class RxSample
 {
 	public static void main(String args[])
 	{
-		Observable<Integer> observable = Observable.just(5, 4, 3, 4, 4, 4, 3, 2, 1);
+		/*Observable<Integer> observable = Observable.just(5, 4, 3, 4, 4, 4, 3, 2, 1);
 
 
 		Disposable disposable = observable
@@ -20,9 +22,9 @@ public class RxSample
 				.distinct()
 				.sorted()
 				.toList()
-				/*.subscribeOn(Schedulers.computation())
-				.observeOn(Schedulers.single())*/
-				.subscribe(System.out::println);
+				*//*.subscribeOn(Schedulers.computation())
+				.observeOn(Schedulers.single())*//*
+				.subscribe(System.out::println);*/
 
 		/*
 		same as ^ Disposable disposable = observable.subscribe(System.out::println);
