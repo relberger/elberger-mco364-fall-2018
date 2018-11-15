@@ -3,11 +3,13 @@ package elberger.earthquake.net;
 import com.google.inject.Inject;
 import elberger.earthquake.Earthquake;
 import elberger.earthquake.EarthquakeFeedModel;
+/*
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+*/
 
 import javax.swing.text.JTextComponent;
 import java.util.List;
@@ -18,7 +20,7 @@ public class EarthquakeController
 {
 	private EarthquakeView view;
 	private UsgsEarthquakeService service;
-	Disposable disposable;
+	//Disposable disposable;
 
 	@Inject
 	public EarthquakeController(EarthquakeView view, UsgsEarthquakeService service)
@@ -29,13 +31,13 @@ public class EarthquakeController
 
 	public void refreshData()
 	{
-		disposable = Observable.interval(0, 30, TimeUnit.SECONDS)
+		/*disposable = Observable.interval(0, 30, TimeUnit.SECONDS)
 				.flatMap(aLong -> service.getAllDay())
 				.map(feed -> feed.getFeatures())
 				.subscribeOn(Schedulers.io())
 				.observeOn(Schedulers.single())
 				.subscribe(this::setEarthquakes,
-				throwable -> System.out.println("Error"));
+				throwable -> System.out.println("Error"));*/
 	}
 
 	private void setEarthquakes(List<Earthquake> list)
@@ -58,8 +60,8 @@ public class EarthquakeController
 		e5.setText(earthquakes.get(4).getProperties().getPlace() + ": " + earthquakes.get(4).getProperties().getMag());
 	}
 
-	public void stop()
+	/*public void stop()
 	{
 		disposable.dispose();
-	}
+	}*/
 }

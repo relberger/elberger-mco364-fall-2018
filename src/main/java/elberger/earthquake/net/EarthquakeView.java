@@ -321,7 +321,7 @@ public class EarthquakeView  extends JFrame implements WindowListener
 			@Override
 			public void windowClosed(WindowEvent e)
 			{
-				controller.stop();
+				//controller.stop();
 			}
 		});
 
