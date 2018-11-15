@@ -2,8 +2,7 @@ package elberger.earthquake.net;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 /*import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Comparator;
@@ -28,10 +27,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static java.lang.Thread.sleep;
 
 @Singleton
-public class EarthquakeView extends JFrame
+public class EarthquakeView  extends JFrame implements WindowListener
 {
-	private static Timer timer;
-	/*private static final long serialVersionUID = 6111006689421939040L;
+	/*private static Timer timer;
+	private static final long serialVersionUID = 6111006689421939040L;
 		private JTextField monthMag;
 		private JTextField monthLoc;
 		private JTextField weekMag;
@@ -317,11 +316,20 @@ public class EarthquakeView extends JFrame
 
 		controller.refreshData();
 
-		timer = new Timer(30000, (event) -> controller.refreshData());
+		view.addWindowListener(new WindowAdapter()
+		{
+			@Override
+			public void windowClosed(WindowEvent e)
+			{
+				//controller.stop();
+			}
+		});
+
+		/*timer = new Timer(30000, (event) -> controller.refreshData());
 		timer.setInitialDelay(0);
 		timer.start();
 
-		/*Thread thread = new Thread()
+		Thread thread = new Thread()
 		{
 			public void run()
 			{
@@ -339,5 +347,47 @@ public class EarthquakeView extends JFrame
 		thread.start();*/
 
 		view.setVisible(true);
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e)
+	{
+
 	}
 }
