@@ -2,6 +2,7 @@ package elberger.paint;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PaintFrame extends JFrame
@@ -31,24 +32,15 @@ public class PaintFrame extends JFrame
 		buttonPanel.add(choosePencil);
 		buttonPanel.add(chooseRectangle);
 
-		ActionListener choosingColor = e ->
+		chooseColor.addActionListener(actionEvent ->
 		{
 			color = JColorChooser.showDialog(PaintFrame.this, "Choose Color", canvas.getColor());
 			canvas.setColor(color);
-		};
-		chooseColor.addActionListener(choosingColor);
+		});
 
-		ActionListener choosingPencil = e ->
-		{
-			canvas.setTool(Tools.PENCIL);
-		};
-		choosePencil.addActionListener(choosingPencil);
+		choosePencil.addActionListener(actionEvent -> canvas.setTool(Tools.PENCIL));
 
-		ActionListener choosingRectangle = e ->
-		{
-			canvas.setTool(Tools.RECTANGLE);
-		};
-		chooseRectangle.addActionListener(choosingRectangle);
+		chooseRectangle.addActionListener(actionEvent -> canvas.setTool(Tools.RECTANGLE));
 
 		canvas = new Canvas();
 
