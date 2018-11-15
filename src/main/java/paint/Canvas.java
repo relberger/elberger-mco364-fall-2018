@@ -13,7 +13,6 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 {
 	private Tools tool = Tools.PENCIL;
 	private final List<Shape> shapes = new ArrayList<>();
-	private final List<List<Point>> rectangles = new ArrayList<>();
 	private Color color = Color.BLACK;
 	private int current = -1;
 
