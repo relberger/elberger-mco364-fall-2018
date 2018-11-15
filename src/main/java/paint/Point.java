@@ -6,13 +6,11 @@ public class Point
 {
 	private int x;
 	private int y;
-	//private Color color;
 
-	public Point(int x, int y)//, Color color)
+	public Point(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		//this.color = color;
 	}
 
 	public int getX()
@@ -24,9 +22,4 @@ public class Point
 	{
 		return y;
 	}
-
-	/*public Color getColor()
-	{
-		return color;
-	}*/
 }

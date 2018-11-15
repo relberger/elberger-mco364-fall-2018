@@ -7,6 +7,7 @@ public class Shape
 	private int x;
 	private int y;
 	private Color color;
+	private Tools tool;
 
 	public Shape(int x, int y, Color color)
 	{
@@ -20,19 +21,9 @@ public class Shape
 		return x;
 	}
 
-	public void setX(int x)
-	{
-		this.x = x;
-	}
-
 	public int getY()
 	{
 		return y;
-	}
-
-	public void setY(int y)
-	{
-		this.y = y;
 	}
 
 	public Color getColor()
@@ -40,8 +31,13 @@ public class Shape
 		return color;
 	}
 
-	public void setColor(Color color)
+	public Tools getTool()
 	{
-		this.color = color;
+		return tool;
+	}
+
+	public void setTool(Tools tool)
+	{
+		this.tool = tool;
 	}
 }
