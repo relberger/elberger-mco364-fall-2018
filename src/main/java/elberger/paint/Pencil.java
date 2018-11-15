@@ -1,4 +1,4 @@
-package paint;
+package elberger.paint;
 
 import java.awt.*;
 import java.util.ArrayList;

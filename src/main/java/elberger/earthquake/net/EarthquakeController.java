@@ -1,23 +1,24 @@
 package elberger.earthquake.net;
 
-import java.util.Comparator;
-import java.util.Optional;
-
-import javax.swing.text.JTextComponent;
-
 import com.google.inject.Inject;
-
 import elberger.earthquake.Earthquake;
 import elberger.earthquake.EarthquakeFeedModel;
-import elberger.earthquake.EarthquakeProperties;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+
+import javax.swing.text.JTextComponent;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class EarthquakeController
 {
 	private EarthquakeView view;
 	private UsgsEarthquakeService service;
+	Disposable disposable;
 
 	@Inject
 	public EarthquakeController(EarthquakeView view, UsgsEarthquakeService service)
@@ -28,67 +29,37 @@ public class EarthquakeController
 
 	public void refreshData()
 	{
-		requestMonth();
-		requestWeek();
-		requestDay();
-		requestHour();
+		disposable = Observable.interval(0, 30, TimeUnit.SECONDS)
+				.flatMap(aLong -> service.getAllDay())
+				.map(feed -> feed.getFeatures())
+				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.single())
+				.subscribe(this::setEarthquakes,
+				throwable -> System.out.println("Error"));
 	}
 
-	public void requestEarthquakeFeed(Call<EarthquakeFeedModel> call, JTextComponent magnitudeField,
-			JTextComponent locationField)
+	private void setEarthquakes(List<Earthquake> list)
 	{
-		call.enqueue(new Callback<EarthquakeFeedModel>()
-		{
-			@Override
-			public void onResponse(Call<EarthquakeFeedModel> call, Response<EarthquakeFeedModel> response)
-			{
-				EarthquakeFeedModel feed = response.body();
-
-				showLargestEarthquake(feed, locationField, magnitudeField);
-			}
-
-			@Override
-			public void onFailure(Call<EarthquakeFeedModel> callMonth, Throwable t)
-			{
-				t.printStackTrace();
-			}
-		});
+		List<Earthquake> earthquakes = list
+				.stream()
+				.filter(earthquake -> earthquake.getProperties().getMag() >= 1.0)
+				.sorted((a, b) -> a.getProperties().getMag() > b.getProperties().getMag() ? -1 : 1)
+				.limit(5)
+				.collect(Collectors.toList());
+		display(view.getE1(), view.getE2(), view.getE3(), view.getE4(), view.getE5(), earthquakes);
 	}
 
-	public void requestMonth()
+	private void display(JTextComponent e1, JTextComponent e2, JTextComponent e3, JTextComponent e4, JTextComponent e5, List<Earthquake> earthquakes)
 	{
-		requestEarthquakeFeed(service.getAllMonth(), view.getMonthMagTextField(), view.getMonthLocTextField());
+		e1.setText(earthquakes.get(0).getProperties().getPlace() + ": " + earthquakes.get(0).getProperties().getMag());
+		e2.setText(earthquakes.get(1).getProperties().getPlace() + ": " + earthquakes.get(1).getProperties().getMag());
+		e3.setText(earthquakes.get(2).getProperties().getPlace() + ": " + earthquakes.get(2).getProperties().getMag());
+		e4.setText(earthquakes.get(3).getProperties().getPlace() + ": " + earthquakes.get(3).getProperties().getMag());
+		e5.setText(earthquakes.get(4).getProperties().getPlace() + ": " + earthquakes.get(4).getProperties().getMag());
 	}
 
-	public void requestWeek()
+	public void stop()
 	{
-		requestEarthquakeFeed(service.getAllWeek(), view.getWeekMagTextField(), view.getWeekLocTextField());
+		disposable.dispose();
 	}
-
-	public void requestDay()
-	{
-		requestEarthquakeFeed(service.getAllDay(), view.getDayMagTextField(), view.getDayLocTextField());
-	}
-
-	public void requestHour()
-	{
-		requestEarthquakeFeed(service.getAllHour(), view.getHourMagTextField(), view.getHourLocTextField());
-	}
-
-	public void showLargestEarthquake(
-			EarthquakeFeedModel feed , 
-			JTextComponent magnitudeField, 
-			JTextComponent locationField)
-	{
-		Optional<Earthquake> largest = feed.getFeatures().stream()
-				.max(Comparator.comparing(e -> e.getProperties().getMag()));
-
-		EarthquakeProperties properties = largest.get().getProperties();
-
-		String magnitude = String.valueOf(properties.getMag());
-		String location = String.valueOf(properties.getPlace());
-		magnitudeField.setText(magnitude);
-		locationField.setText(location);
-	}
-
 }

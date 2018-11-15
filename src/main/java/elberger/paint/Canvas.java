@@ -1,4 +1,4 @@
-package paint;
+package elberger.paint;
 
 import javax.swing.*;
 import java.awt.Color;

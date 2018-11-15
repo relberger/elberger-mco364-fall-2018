@@ -2,6 +2,7 @@ package elberger.earthquake.net;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.*;
 /*import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Comparator;
@@ -23,19 +24,27 @@ import retrofit2.Response;*/
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static java.lang.Thread.sleep;
+
 @Singleton
-public class EarthquakeView extends JFrame //implements WindowListener
+public class EarthquakeView  extends JFrame implements WindowListener
 {
+	/*private static Timer timer;
 	private static final long serialVersionUID = 6111006689421939040L;
-	private JTextField monthMag;
-	private JTextField monthLoc;
-	private JTextField weekMag;
-	private JTextField weekLoc;
-	private JTextField dayMag;
-	private JTextField dayLoc;
-	private JTextField hourMag;
-	private JTextField hourLoc;
-	
+		private JTextField monthMag;
+		private JTextField monthLoc;
+		private JTextField weekMag;
+		private JTextField weekLoc;
+		private JTextField dayMag;
+		private JTextField dayLoc;
+		private JTextField hourMag;
+		private JTextField hourLoc;*/
+	private JTextField e1;
+	private JTextField e2;
+	private JTextField e3;
+	private JTextField e4;
+	private JTextField e5;
+
 	public EarthquakeView()
 	{
 		setTitle("Largest Earthquakes");
@@ -46,18 +55,36 @@ public class EarthquakeView extends JFrame //implements WindowListener
 		panel.setLayout(new BorderLayout());
 		
 		JPanel earthquakePanel = new JPanel();
-		earthquakePanel.setLayout(new GridLayout(8, 2));
-		
-		JLabel monthMagLabel = new JLabel("Past month magnitude:");
+		earthquakePanel.setLayout(new GridLayout(5, 1));
+
+		e1 = new JTextField();
+		e2 = new JTextField();
+		e3 = new JTextField();
+		e4 = new JTextField();
+		e5 = new JTextField();
+
+		earthquakePanel.add(e1);
+		earthquakePanel.add(e2);
+		earthquakePanel.add(e3);
+		earthquakePanel.add(e4);
+		earthquakePanel.add(e5);
+
+		e1.setEditable(false);
+		e2.setEditable(false);
+		e3.setEditable(false);
+		e4.setEditable(false);
+		e5.setEditable(false);
+
+		/*JLabel monthMagLabel = new JLabel("Past month magnitude:");
 		JLabel monthLocLabel = new JLabel("Past month location:");
 		JLabel weekMagLabel = new JLabel("Past week magnitude:");
 		JLabel weekLocLabel = new JLabel("Past week location:");
 		JLabel dayMagLabel = new JLabel("Past day magnitude:");
 		JLabel dayLocLabel = new JLabel("Past day location:");
 		JLabel hourMagLabel = new JLabel("Past hour magnitude:");
-		JLabel hourLocLabel = new JLabel("Past hour location:");
+		JLabel hourLocLabel = new JLabel("Past hour location:");*/
 		
-		monthMag = new JTextField();
+		/*monthMag = new JTextField();
 		monthLoc = new JTextField();
 		weekMag = new JTextField();
 		weekLoc = new JTextField();
@@ -81,7 +108,7 @@ public class EarthquakeView extends JFrame //implements WindowListener
 		earthquakePanel.add(hourMagLabel);
 		earthquakePanel.add(hourMag);
 		earthquakePanel.add(hourLocLabel);
-		earthquakePanel.add(hourLoc);		
+		earthquakePanel.add(hourLoc);
 		
 		monthMag.setEditable(false);
 		monthLoc.setEditable(false);		
@@ -90,13 +117,14 @@ public class EarthquakeView extends JFrame //implements WindowListener
 		dayMag.setEditable(false);
 		dayLoc.setEditable(false);
 		hourMag.setEditable(false);
-		hourLoc.setEditable(false);
+		hourLoc.setEditable(false);*/
 		
 //		addWindowListener(this);
 		
 		panel.add(earthquakePanel, BorderLayout.CENTER);
 		
 		add(panel);
+
 	}
 
 /*	public void getMonthValues()
@@ -113,8 +141,8 @@ public class EarthquakeView extends JFrame //implements WindowListener
 								.stream()
 								.max(Comparator.comparing(e -> e.getProperties().getMag()));
 							
-							String monthMagValue = String.valueOf(greatestMonth.get().getProperties().getMag());
-							String monthLocValue = String.valueOf(greatestMonth.get().getProperties().getPlace());
+							String monthMagValue = String.valueOf(greatestMonth.getCell().getProperties().getMag());
+							String monthLocValue = String.valueOf(greatestMonth.getCell().getProperties().getPlace());
 							monthMag.setText(monthMagValue);
 							monthLoc.setText(monthLocValue);
 					}
@@ -141,8 +169,8 @@ public class EarthquakeView extends JFrame //implements WindowListener
 								.stream()
 								.max(Comparator.comparing(e -> e.getProperties().getMag()));
 							
-							String weekMagValue = String.valueOf(greatestWeek.get().getProperties().getMag());
-							String weekLocValue = String.valueOf(greatestWeek.get().getProperties().getPlace());
+							String weekMagValue = String.valueOf(greatestWeek.getCell().getProperties().getMag());
+							String weekLocValue = String.valueOf(greatestWeek.getCell().getProperties().getPlace());
 							weekMag.setText(weekMagValue);
 							weekLoc.setText(weekLocValue);
 					}
@@ -169,8 +197,8 @@ public class EarthquakeView extends JFrame //implements WindowListener
 						.stream()
 						.max(Comparator.comparing(e -> e.getProperties().getMag()));
 					
-					String dayMagValue = String.valueOf(greatestDay.get().getProperties().getMag());
-					String dayLocValue = String.valueOf(greatestDay.get().getProperties().getPlace());
+					String dayMagValue = String.valueOf(greatestDay.getCell().getProperties().getMag());
+					String dayLocValue = String.valueOf(greatestDay.getCell().getProperties().getPlace());
 					dayMag.setText(dayMagValue);
 					dayLoc.setText(dayLocValue);
 			}
@@ -197,8 +225,8 @@ public class EarthquakeView extends JFrame //implements WindowListener
 					.stream()
 					.max(Comparator.comparing(e -> e.getProperties().getMag()));
 				
-				String hourMagValue = String.valueOf(greatestHour.get().getProperties().getMag());
-				String hourLocValue = String.valueOf(greatestHour.get().getProperties().getPlace());
+				String hourMagValue = String.valueOf(greatestHour.getCell().getProperties().getMag());
+				String hourLocValue = String.valueOf(greatestHour.getCell().getProperties().getPlace());
 				hourMag.setText(hourMagValue);
 				hourLoc.setText(hourLocValue);
 			}
@@ -212,7 +240,7 @@ public class EarthquakeView extends JFrame //implements WindowListener
 		
 	}*/
 
-	public JTextField getMonthMagTextField()
+	/*public JTextField getMonthMagTextField()
 	{
 		return monthMag;
 	}
@@ -251,8 +279,33 @@ public class EarthquakeView extends JFrame //implements WindowListener
 	public JTextComponent getHourLocTextField()
 	{
 		return hourLoc;
+	}*/
+
+	public JTextField getE1()
+	{
+		return e1;
 	}
-	
+
+	public JTextField getE2()
+	{
+		return e2;
+	}
+
+	public JTextField getE3()
+	{
+		return e3;
+	}
+
+	public JTextField getE4()
+	{
+		return e4;
+	}
+
+	public JTextField getE5()
+	{
+		return e5;
+	}
+
 	public static void main(String[] args)
 	{
 		Injector injector = Guice.createInjector(new EarthquakeModule());
@@ -260,9 +313,81 @@ public class EarthquakeView extends JFrame //implements WindowListener
 		EarthquakeView view = injector.getInstance(EarthquakeView.class);
 		
 		EarthquakeController controller = injector.getInstance(EarthquakeController.class);
-		
+
 		controller.refreshData();
 
+		view.addWindowListener(new WindowAdapter()
+		{
+			@Override
+			public void windowClosed(WindowEvent e)
+			{
+				controller.stop();
+			}
+		});
+
+		/*timer = new Timer(30000, (event) -> controller.refreshData());
+		timer.setInitialDelay(0);
+		timer.start();
+
+		Thread thread = new Thread()
+		{
+			public void run()
+			{
+				controller.refreshData();
+				try
+				{
+					sleep(30000);
+				} catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		};
+
+		thread.start();*/
+
 		view.setVisible(true);
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e)
+	{
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e)
+	{
+
 	}
 }

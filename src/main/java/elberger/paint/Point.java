@@ -1,6 +1,4 @@
-package paint;
-
-import java.awt.*;
+package elberger.paint;
 
 public class Point
 {
