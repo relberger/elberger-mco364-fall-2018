@@ -3,11 +3,13 @@ package elberger.earthquake.net;
 import com.google.inject.Inject;
 import elberger.earthquake.Earthquake;
 import elberger.earthquake.EarthquakeFeedModel;
-/*import io.reactivex.Observable;
+/*
+import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;*/
+import io.reactivex.schedulers.Schedulers;
+*/
 
 import javax.swing.text.JTextComponent;
 import java.util.List;

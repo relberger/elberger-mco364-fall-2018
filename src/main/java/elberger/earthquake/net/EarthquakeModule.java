@@ -14,15 +14,15 @@ public class EarthquakeModule extends AbstractModule
 	{
 		/*super.configure();
 		
-		Retrofit retrofit = new Retrofit.Builder()
+		/*Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl("https://earthquake.usgs.gov")
 				.addConverterFactory(GsonConverterFactory.create())
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-				.build();
+				.build();*/
 		
-		UsgsEarthquakeService service = retrofit.create(UsgsEarthquakeService.class);
-			
-		bind(UsgsEarthquakeService.class).toInstance(service);*/
+		//UsgsEarthquakeService service = retrofit.create(UsgsEarthquakeService.class);
+
+		//bind(UsgsEarthquakeService.class).toInstance(service);
 	}
 	
 
