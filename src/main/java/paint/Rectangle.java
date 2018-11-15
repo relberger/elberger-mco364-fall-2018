@@ -6,8 +6,10 @@ public class Rectangle extends Shape
 {
 	private int width;
 	private int height;
-	private int endX;
-	private int endY;
+	private int rightX;
+	private int bottomY;
+	private int leftX;
+	private int topY;
 
 	public Rectangle(int x, int y, Color color)
 	{
@@ -34,23 +36,63 @@ public class Rectangle extends Shape
 		this.height = height;
 	}
 
-	public int getEndX()
+	public int getRightX()
 	{
-		return endX;
+		return rightX;
 	}
 
-	public void setEndX(int endX)
+	public void setRightX(int rightX)
 	{
-		this.endX = endX;
+		this.rightX = rightX;
+		setLeftX();
+		setWidth(Math.abs(getLeftX() - getRightX()));
 	}
 
-	public int getEndY()
+	public int getBottomY()
 	{
-		return endY;
+		return bottomY;
 	}
 
-	public void setEndY(int endY)
+	public void setBottomY(int bottomY)
 	{
-		this.endY = endY;
+		this.bottomY = bottomY;
+		setTopY();
+		setHeight(Math.abs(getBottomY() - getTopY()));
+	}
+
+	public int getLeftX()
+	{
+		return leftX;
+	}
+
+	public void setLeftX()
+	{
+		if (getX() <= rightX)
+		{
+			leftX = getX();
+		}
+		else
+		{
+			leftX = rightX;
+			rightX = getX();
+		}
+	}
+
+	public int getTopY()
+	{
+		return topY;
+	}
+
+	public void setTopY()
+	{
+		if (getY() <= bottomY)
+		{
+			topY = getY();
+		}
+		else
+		{
+			topY = bottomY;
+			bottomY = getY();
+		}
 	}
 }

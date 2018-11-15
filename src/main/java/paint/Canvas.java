@@ -62,7 +62,7 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	private void drawRectangle(Graphics g, int i)
 	{
 		Rectangle rectangle = (Rectangle) shapes.get(i);
-		g.drawRect(rectangle.getX(), rectangle.getY(), (rectangle.getEndX() - rectangle.getX()), (rectangle.getEndY() - rectangle.getY()));
+		g.drawRect(rectangle.getLeftX(), rectangle.getTopY(), rectangle.getWidth(), rectangle.getHeight());
 	}
 
 	public void setColor(Color color)
@@ -92,8 +92,8 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 		}
 		else if (tool == Tools.RECTANGLE)
 		{
-			((Rectangle) shapes.get(current)).setEndX(event.getX());
-			((Rectangle) shapes.get(current)).setEndY(event.getY());
+			((Rectangle) shapes.get(current)).setRightX(event.getX());
+			((Rectangle) shapes.get(current)).setBottomY(event.getY());
 			repaint();
 		}
 	}
@@ -125,8 +125,8 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	{
 		if (tool == Tools.RECTANGLE)
 		{
-			((Rectangle) shapes.get(current)).setEndX(e.getX());
-			((Rectangle) shapes.get(current)).setEndY(e.getY());
+			((Rectangle) shapes.get(current)).setRightX(e.getX());
+			((Rectangle) shapes.get(current)).setBottomY(e.getY());
 		}
 	}
 
