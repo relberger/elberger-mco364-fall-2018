@@ -34,19 +34,20 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 			{
 				if (tool == Tools.PENCIL)
 				{
-					ArrayList<Point> pencilPoints = ((Pencil) shapes.get(i)).getPoints();
+					ArrayList<Point> pencilPoints = ((Pencil) shapes.get(current)).getPoints();
 					for (int p = 1; p < pencilPoints.size(); p++)
 					{
-						g.setColor(shapes.get(i).getColor());
+						g.setColor(shapes.get(current).getColor());
 						g.drawLine(pencilPoints.get(p).getX(), pencilPoints.get(p).getY(),
 								pencilPoints.get(p - 1).getX(), pencilPoints.get(p - 1).getY());
 					}
 				}
 				if (tool == Tools.RECTANGLE)
 				{
-					Rectangle rectangle = (Rectangle) shapes.get(i);
+					Rectangle rectangle = (Rectangle) shapes.get(current);
+					g.setColor(shapes.get(current).getColor());
 					g.drawRect(rectangle.getX(), rectangle.getY(),
-							(rectangle.getX() - rectangle.getEndX()), (rectangle.getY() - rectangle.getEndY()));
+							(rectangle.getEndX() - rectangle.getX()), (rectangle.getEndY() - rectangle.getY()));
 				}
 			}
 		}
@@ -114,6 +115,17 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	}
 
 	@Override
+	public void mouseReleased(MouseEvent e)
+	{
+		if (tool == Tools.RECTANGLE)
+		{
+			((Rectangle) shapes.get(current)).setEndX(e.getX());
+			((Rectangle) shapes.get(current)).setEndY(e.getY());
+			repaint();
+		}
+	}
+	
+	@Override
 	public void mouseMoved(MouseEvent e)
 	{
 
@@ -123,17 +135,6 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	public void mouseClicked(MouseEvent e)
 	{
 
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e)
-	{
-		if (tool == Tools.RECTANGLE)
-		{
-			((Rectangle) shapes.get(current)).setEndX(e.getX());
-			((Rectangle) shapes.get(current)).setEndY(e.getY());
-			repaint();
-		}
 	}
 
 	@Override
