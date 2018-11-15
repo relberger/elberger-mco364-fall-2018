@@ -1,11 +1,13 @@
 package elberger.rx;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
-/*import io.reactivex.Observable;
+/*
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;*/
+import io.reactivex.schedulers.Schedulers;
+*/
 
 public class RxSample
 {

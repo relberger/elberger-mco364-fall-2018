@@ -12,7 +12,7 @@ public class EarthquakeModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
-		super.configure();
+		/*super.configure();
 		
 		/*Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl("https://earthquake.usgs.gov")
@@ -21,7 +21,7 @@ public class EarthquakeModule extends AbstractModule
 				.build();*/
 		
 		//UsgsEarthquakeService service = retrofit.create(UsgsEarthquakeService.class);
-			
+
 		//bind(UsgsEarthquakeService.class).toInstance(service);
 	}
 	
