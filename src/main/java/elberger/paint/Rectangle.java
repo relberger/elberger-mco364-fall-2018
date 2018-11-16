@@ -11,9 +11,9 @@ public class Rectangle extends Shape
 	private int leftX;
 	private int topY;
 
-	public Rectangle(int x, int y, Color color)
+	public Rectangle(int x, int y)
 	{
-		super(x, y, color);
+		super(x, y);
 	}
 
 	public int getWidth()

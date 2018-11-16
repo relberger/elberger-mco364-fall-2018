@@ -2,18 +2,16 @@ package elberger.paint;
 
 import java.awt.*;
 
-public class Shape
+public abstract class Shape
 {
 	private int x;
 	private int y;
 	private Color color;
-	private Tools tool;
 
-	public Shape(int x, int y, Color color)
+	public Shape(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		this.color = color;
 	}
 
 	public int getX()
@@ -26,18 +24,8 @@ public class Shape
 		return y;
 	}
 
-	public Color getColor()
+	public void paint(Graphics graphics)
 	{
-		return color;
-	}
-
-	public Tools getTool()
-	{
-		return tool;
-	}
-
-	public void setTool(Tools tool)
-	{
-		this.tool = tool;
+		graphics.setColor(color);
 	}
 }

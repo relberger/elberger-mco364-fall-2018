@@ -3,13 +3,13 @@ package elberger.paint;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Pencil extends Shape
+public class Line extends Shape
 {
 	private ArrayList<Point> points;
 
-	public Pencil(int x, int y, Color color)
+	public Line(int x, int y)
 	{
-		super(x, y, color);
+		super(x, y);
 	}
 
 	public ArrayList<Point> getPoints()

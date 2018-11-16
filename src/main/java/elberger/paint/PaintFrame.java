@@ -25,7 +25,7 @@ public class PaintFrame extends JFrame
 		JPanel buttonPanel = new JPanel();
 
 		chooseColor = new JButton("Choose Color");
-		choosePencil = new JButton("Pencil");
+		choosePencil = new JButton("Line");
 		chooseRectangle = new JButton("Rectangle");
 
 		buttonPanel.add(chooseColor);
@@ -38,9 +38,9 @@ public class PaintFrame extends JFrame
 			canvas.setColor(color);
 		});
 
-		choosePencil.addActionListener(actionEvent -> canvas.setTool(Tools.PENCIL));
+		choosePencil.addActionListener(actionEvent -> canvas.setTool(new PencilTool()));
 
-		chooseRectangle.addActionListener(actionEvent -> canvas.setTool(Tools.RECTANGLE));
+		chooseRectangle.addActionListener(actionEvent -> canvas.setTool(new RectangleTool()));
 
 		canvas = new Canvas();
 
