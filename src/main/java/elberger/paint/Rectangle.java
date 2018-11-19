@@ -13,8 +13,7 @@ public class Rectangle extends Shape
 
 	public Rectangle(int x, int y, Color color)
 	{
-		super(x, y);
-		setColor(color);
+		super(x, y, color);
 	}
 
 	public int getWidth()

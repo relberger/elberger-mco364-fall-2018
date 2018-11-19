@@ -8,10 +8,11 @@ public abstract class Shape
 	private int y;
 	private Color color;
 
-	public Shape(int x, int y)
+	public Shape(int x, int y, Color color)
 	{
 		this.x = x;
 		this.y = y;
+		this.color = color;
 	}
 
 	public int getX()
@@ -27,11 +28,6 @@ public abstract class Shape
 	public Color getColor()
 	{
 		return color;
-	}
-
-	public void setColor(Color color)
-	{
-		this.color = color;
 	}
 
 	public void paint(Graphics graphics)

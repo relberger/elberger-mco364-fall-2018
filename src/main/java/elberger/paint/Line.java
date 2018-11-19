@@ -9,8 +9,7 @@ public class Line extends Shape
 
 	public Line(int x, int y, Color color)
 	{
-		super(x, y);
-		setColor(color);
+		super(x, y, color);
 	}
 
 	public ArrayList<Point> getPoints()
