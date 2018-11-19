@@ -5,8 +5,7 @@ import java.awt.*;
 interface Tool
 {
 	void onDrag(int x, int y);
-	void onPress(int x, int y);
+	void onPress(int x, int y, Color color);
 	void onRelease(int x, int y);
-	Class<Rectangle> getShape();
-	void drawShape(Graphics graphics);
+	Shape getShape();
 }

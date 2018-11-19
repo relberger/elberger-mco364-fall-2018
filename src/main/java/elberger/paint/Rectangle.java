@@ -11,9 +11,10 @@ public class Rectangle extends Shape
 	private int leftX;
 	private int topY;
 
-	public Rectangle(int x, int y)
+	public Rectangle(int x, int y, Color color)
 	{
 		super(x, y);
+		setColor(color);
 	}
 
 	public int getWidth()
@@ -94,5 +95,12 @@ public class Rectangle extends Shape
 			topY = bottomY;
 			bottomY = getY();
 		}
+	}
+
+	@Override
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		g.drawRect(getLeftX(), getTopY(), getWidth(), getHeight());
 	}
 }

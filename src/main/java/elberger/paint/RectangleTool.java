@@ -1,12 +1,10 @@
 package elberger.paint;
 
 import java.awt.*;
-import java.util.List;
 
 public class RectangleTool implements Tool
 {
 	private Rectangle rectangle;
-	private List<Shape> shapes;
 
 	public RectangleTool()
 	{
@@ -20,10 +18,9 @@ public class RectangleTool implements Tool
 	}
 
 	@Override
-	public void onPress(int x, int y)
+	public void onPress(int x, int y, Color color)
 	{
-		rectangle = new Rectangle(x, y);
-		shapes.add(rectangle);
+		rectangle = new Rectangle(x, y, color);
 	}
 
 	@Override
@@ -34,15 +31,8 @@ public class RectangleTool implements Tool
 	}
 
 	@Override
-	public Class<Rectangle> getShape()
+	public Shape getShape()
 	{
-		return Rectangle.class;
-	}
-
-
-	@Override
-	public void drawShape(Graphics graphics)
-	{
-		graphics.drawRect(rectangle.getLeftX(), rectangle.getTopY(), rectangle.getWidth(), rectangle.getHeight());
+		return rectangle;
 	}
 }

@@ -24,8 +24,18 @@ public abstract class Shape
 		return y;
 	}
 
+	public Color getColor()
+	{
+		return color;
+	}
+
+	public void setColor(Color color)
+	{
+		this.color = color;
+	}
+
 	public void paint(Graphics graphics)
 	{
-		graphics.setColor(color);
+		graphics.setColor(getColor());
 	}
 }

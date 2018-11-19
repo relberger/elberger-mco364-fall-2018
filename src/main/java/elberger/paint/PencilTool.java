@@ -2,12 +2,10 @@ package elberger.paint;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PencilTool implements Tool
 {
 	private Line line;
-	//private List<Shape> shapes;
 
 	public PencilTool()
 	{
@@ -21,12 +19,11 @@ public class PencilTool implements Tool
 	}
 
 	@Override
-	public void onPress(int x, int y)
+	public void onPress(int x, int y, Color color)
 	{
-		line = new Line(x, y);
+		line = new Line(x, y, color);
 		ArrayList<Point> pencilPoints = new ArrayList<>();
 		line.setPoints(pencilPoints);
-		//shapes.add(line);
 	}
 
 	@Override
@@ -36,19 +33,8 @@ public class PencilTool implements Tool
 	}
 
 	@Override
-	public List<Shape> getShapes(List<Shape> shapes)
+	public Shape getShape()
 	{
-		return shapes;
-	}
-
-	@Override
-	public void drawShape(Graphics graphics)
-	{
-		ArrayList<Point> pencilPoints = line.getPoints();
-		for (int i = 1; i < pencilPoints.size(); i++)
-		{
-			graphics.drawLine(pencilPoints.get(i).getX(), pencilPoints.get(i).getY(),
-					pencilPoints.get(i - 1).getX(), pencilPoints.get(i - 1).getY());
-		}
+		return line;
 	}
 }
