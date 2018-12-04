@@ -34,6 +34,6 @@ public class EraserTool implements Tool
 	@Override
 	public Shape getShape()
 	{
-		return null;
+		return eraser;
 	}
 }

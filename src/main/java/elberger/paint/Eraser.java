@@ -11,8 +11,7 @@ public class Eraser extends Shape
 
 	public Eraser(int x, int y, Color color)
 	{
-		super(x, y, color);
-		setColor(Color.WHITE);
+		super(x, y, Color.white);
 	}
 
 	public int getWidth()
@@ -50,10 +49,10 @@ public class Eraser extends Shape
 	{
 		for (int i = 1; i < erasers.size(); i++)
 		{
-			setColor(Color.white);
+			//setColor(Color.white);
 			g.fillRect(erasers.get(i).getX(), erasers.get(i).getY(),
-					(erasers.get(i - 1).getX() - erasers.get(i).getX()),
-					(erasers.get(i - 1).getY() - erasers.get(i).getY()));
+					(erasers.get(i - 1).getX() - erasers.get(i).getX()) * 2,
+					(erasers.get(i - 1).getY() - erasers.get(i).getY()) * 2);
 		}
 	}
 }
