@@ -55,6 +55,15 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 		this.tool = tool;
 	}
 
+	public void undo()
+	{
+		if (!shapes.isEmpty())
+		{
+			shapes.remove(shapes.size() - 1);
+			repaint();
+		}
+	}
+
 	@Override
 	public void mouseDragged(MouseEvent event)
 	{
