@@ -20,7 +20,7 @@ public class RectangleTool implements Tool
 	@Override
 	public void onPress(int x, int y, Color color)
 	{
-		rectangle = new Rectangle(x, y, color);
+		rectangle = new Rectangle(x, y, color);//, color);
 	}
 
 	@Override

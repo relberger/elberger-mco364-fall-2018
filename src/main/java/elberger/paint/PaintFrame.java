@@ -11,6 +11,7 @@ public class PaintFrame extends JFrame
 	private JButton chooseColor;
 	private JButton choosePencil;
 	private JButton chooseRectangle;
+	private JButton chooseEraser;
 	private Color color;
 
 	public PaintFrame()
@@ -27,10 +28,12 @@ public class PaintFrame extends JFrame
 		chooseColor = new JButton("Choose Color");
 		choosePencil = new JButton("Line");
 		chooseRectangle = new JButton("Rectangle");
+		chooseEraser = new JButton("Eraser");
 
 		buttonPanel.add(chooseColor);
 		buttonPanel.add(choosePencil);
 		buttonPanel.add(chooseRectangle);
+		buttonPanel.add(chooseEraser);
 
 		chooseColor.addActionListener(actionEvent ->
 		{
@@ -41,6 +44,8 @@ public class PaintFrame extends JFrame
 		choosePencil.addActionListener(actionEvent -> canvas.setTool(new PencilTool()));
 
 		chooseRectangle.addActionListener(actionEvent -> canvas.setTool(new RectangleTool()));
+
+		chooseEraser.addActionListener(actionEvent -> canvas.setTool(new EraserTool()));
 
 		canvas = new Canvas();
 

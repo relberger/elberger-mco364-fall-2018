@@ -30,6 +30,11 @@ public abstract class Shape
 		return color;
 	}
 
+	public void setColor(Color color)
+	{
+		this.color = color;
+	}
+
 	public void paint(Graphics graphics)
 	{
 		graphics.setColor(getColor());
