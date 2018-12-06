@@ -9,7 +9,6 @@ public class PencilTool implements Tool
 
 	public PencilTool()
 	{
-
 	}
 
 	@Override

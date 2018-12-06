@@ -27,7 +27,7 @@ public class Eraser extends Shape
 	{
 		for (Eraser eraser : erasers)
 		{
-			g.fillRect(eraser.getX(), eraser.getY(), 10,10);
+			g.fillRect(eraser.getX(), eraser.getY(), 10, 10);
 		}
 	}
 }

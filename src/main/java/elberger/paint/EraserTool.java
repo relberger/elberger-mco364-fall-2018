@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class EraserTool implements Tool
 {
-	private  Eraser eraser;
+	private Eraser eraser;
 
 	public EraserTool()
 	{
-
 	}
+
 	@Override
 	public void onDrag(int x, int y)
 	{

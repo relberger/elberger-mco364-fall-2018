@@ -8,8 +8,8 @@ public class FilledRectangleTool implements Tool
 
 	public FilledRectangleTool()
 	{
-
 	}
+
 	@Override
 	public void onDrag(int x, int y)
 	{
@@ -20,7 +20,7 @@ public class FilledRectangleTool implements Tool
 	@Override
 	public void onPress(int x, int y, Color color)
 	{
-		filledRectangle  = new FilledRectangle(x, y, color);
+		filledRectangle = new FilledRectangle(x, y, color);
 	}
 
 	@Override
