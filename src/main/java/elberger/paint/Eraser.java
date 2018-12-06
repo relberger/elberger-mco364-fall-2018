@@ -25,9 +25,11 @@ public class Eraser extends Shape
 	@Override
 	public void paint(Graphics g)
 	{
-		for (Eraser eraser : erasers)
+		for (int i = 1; i < erasers.size(); i++)
 		{
-			g.fillRect(eraser.getX(), eraser.getY(), 10, 10);
+			((Graphics2D)g).setStroke(new BasicStroke(10));
+			g.drawLine(erasers.get(i).getX(), erasers.get(i).getY(),
+					erasers.get(i - 1).getX(), erasers.get(i - 1).getY());
 		}
 	}
 }
