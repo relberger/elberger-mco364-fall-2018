@@ -95,4 +95,11 @@ public class Rectangle extends Shape
 			bottomY = getY();
 		}
 	}
+
+	@Override
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		g.drawRect(getLeftX(), getTopY(), getWidth(), getHeight());
+	}
 }
