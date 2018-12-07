@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class PaintFrame extends JFrame
 {
@@ -14,6 +15,7 @@ public class PaintFrame extends JFrame
 	private JButton chooseEraser;
 	private JButton chooseFilledRectangle;
 	private JButton chooseUndo;
+	private JButton chooseSave;
 	private Color color;
 
 	public PaintFrame()
@@ -33,6 +35,7 @@ public class PaintFrame extends JFrame
 		chooseEraser = new JButton("Eraser");
 		chooseFilledRectangle = new JButton("Filled Rectangle");
 		chooseUndo = new JButton("Undo");
+		chooseSave = new JButton("Save");
 
 		buttonPanel.add(chooseColor);
 		buttonPanel.add(choosePencil);
@@ -40,6 +43,7 @@ public class PaintFrame extends JFrame
 		buttonPanel.add(chooseEraser);
 		buttonPanel.add(chooseFilledRectangle);
 		buttonPanel.add(chooseUndo);
+		buttonPanel.add(chooseSave);
 
 		chooseColor.addActionListener(actionEvent ->
 		{
@@ -56,6 +60,20 @@ public class PaintFrame extends JFrame
 		chooseFilledRectangle.addActionListener(actionEvent -> canvas.setTool(new FilledRectangleTool()));
 
 		chooseUndo.addActionListener(actionEvent -> canvas.undo());
+
+		chooseSave.addActionListener(actionEvent ->
+		{
+			try
+			{
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.showSaveDialog(this);
+				canvas.setFile(fileChooser.getSelectedFile());
+				canvas.save();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		});
 
 		canvas = new Canvas();
 

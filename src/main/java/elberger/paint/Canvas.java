@@ -1,11 +1,15 @@
 package elberger.paint;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +18,7 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	private Tool tool = new PencilTool();
 	private final List<Shape> shapes = new ArrayList<>();
 	private Color color = Color.BLACK;
+	private File file;
 
 	public Canvas()
 	{
@@ -62,6 +67,28 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 			shapes.remove(shapes.size() - 1);
 			repaint();
 		}
+	}
+
+	public void save() throws IOException
+	{
+		BufferedImage bufferedImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = bufferedImage.createGraphics();
+
+		drawCanvas(g2d);
+		for (Shape shape : shapes)
+		{
+			g2d.setColor(shape.getColor());
+			shape.paint(g2d);
+		}
+
+		File filePNG = new File(file.getAbsolutePath() + ".png");
+		ImageIO.write(bufferedImage, "png", filePNG);
+		System.out.println("saved");
+	}
+
+	public void setFile(File file)
+	{
+		this.file = file;
 	}
 
 	@Override
