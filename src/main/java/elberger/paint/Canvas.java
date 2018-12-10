@@ -83,7 +83,6 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 
 		File filePNG = new File(file.getAbsolutePath() + ".png");
 		ImageIO.write(bufferedImage, "png", filePNG);
-		System.out.println("saved");
 	}
 
 	public void setFile(File file)
