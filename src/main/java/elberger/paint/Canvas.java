@@ -7,9 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +67,7 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 		}
 	}
 
-	public void save() throws IOException
+	public void saveAsPNG() throws IOException
 	{
 		BufferedImage bufferedImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = bufferedImage.createGraphics();
@@ -85,9 +83,34 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 		ImageIO.write(bufferedImage, "png", filePNG);
 	}
 
-	public void setFile(File file)
+	public void setPNGFile(File file)
 	{
 		this.file = file;
+	}
+
+	public void saveAsShapes() throws IOException
+	{
+
+		FileOutputStream fileOutputStream = new FileOutputStream("shapes.ser");
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+		for (Shape shape : shapes)
+		{
+			objectOutputStream.writeObject(shape);
+		}
+		objectOutputStream.close();
+	}
+
+	public void openAsShapes() throws IOException, ClassNotFoundException
+	{
+		FileInputStream fileInputStream = new FileInputStream("shapes.ser");
+		ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+		Object shape = objectInputStream.readObject();
+		shapes.add((Shape) shape);
+		objectInputStream.close();
+
+		repaint();
 	}
 
 	@Override

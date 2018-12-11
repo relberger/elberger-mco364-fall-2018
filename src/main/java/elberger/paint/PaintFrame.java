@@ -2,8 +2,6 @@ package elberger.paint;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class PaintFrame extends JFrame
@@ -15,13 +13,15 @@ public class PaintFrame extends JFrame
 	private JButton chooseEraser;
 	private JButton chooseFilledRectangle;
 	private JButton chooseUndo;
-	private JButton chooseSave;
+	private JButton chooseSaveAsPNG;
+	private JButton chooseSaveAsShapes;
+	private JButton chooseOpenAsShapes;
 	private Color color;
 
 	public PaintFrame()
 	{
 		setTitle("Paint");
-		setSize(800, 600);
+		setSize(1200, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
@@ -35,7 +35,9 @@ public class PaintFrame extends JFrame
 		chooseEraser = new JButton("Eraser");
 		chooseFilledRectangle = new JButton("Filled Rectangle");
 		chooseUndo = new JButton("Undo");
-		chooseSave = new JButton("Save");
+		chooseSaveAsPNG = new JButton("Save as PNG");
+		chooseSaveAsShapes = new JButton("Save as Shapes");
+		chooseOpenAsShapes = new JButton("Open as Shapes");
 
 		buttonPanel.add(chooseColor);
 		buttonPanel.add(choosePencil);
@@ -43,7 +45,9 @@ public class PaintFrame extends JFrame
 		buttonPanel.add(chooseEraser);
 		buttonPanel.add(chooseFilledRectangle);
 		buttonPanel.add(chooseUndo);
-		buttonPanel.add(chooseSave);
+		buttonPanel.add(chooseSaveAsPNG);
+		buttonPanel.add(chooseSaveAsShapes);
+		buttonPanel.add(chooseOpenAsShapes);
 
 		chooseColor.addActionListener(actionEvent ->
 		{
@@ -61,15 +65,40 @@ public class PaintFrame extends JFrame
 
 		chooseUndo.addActionListener(actionEvent -> canvas.undo());
 
-		chooseSave.addActionListener(actionEvent ->
+		chooseSaveAsPNG.addActionListener(actionEvent ->
 		{
 			try
 			{
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.showSaveDialog(this);
-				canvas.setFile(fileChooser.getSelectedFile());
-				canvas.save();
+				canvas.setPNGFile(fileChooser.getSelectedFile());
+				canvas.saveAsPNG();
 			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		});
+
+		chooseSaveAsShapes.addActionListener(actionEvent ->
+		{
+			try
+			{
+				canvas.saveAsShapes();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		});
+
+		chooseOpenAsShapes.addActionListener(actionEvent ->
+		{
+			try
+			{
+				canvas.openAsShapes();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			} catch (ClassNotFoundException e)
 			{
 				e.printStackTrace();
 			}
