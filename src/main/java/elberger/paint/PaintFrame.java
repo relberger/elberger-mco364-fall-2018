@@ -17,6 +17,7 @@ public class PaintFrame extends JFrame
 	private JButton chooseSaveAsShapes;
 	private JButton chooseOpenAsShapes;
 	private Color color;
+	private final String SAVE_PAINT_PATH = "src/main/java/elberger/paint/savedPaintShapes/";
 
 	public PaintFrame()
 	{
@@ -71,7 +72,7 @@ public class PaintFrame extends JFrame
 			{
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.showSaveDialog(this);
-				canvas.setPNGFile(fileChooser.getSelectedFile());
+				canvas.setUserFilePNG(fileChooser.getSelectedFile());
 				canvas.saveAsPNG();
 			} catch (IOException e)
 			{
@@ -81,6 +82,8 @@ public class PaintFrame extends JFrame
 
 		chooseSaveAsShapes.addActionListener(actionEvent ->
 		{
+			String saveAsShapesFile = JOptionPane.showInputDialog("Please enter a file name to save.");
+			canvas.setUserFileShapes(SAVE_PAINT_PATH + saveAsShapesFile + ".ser");
 			try
 			{
 				canvas.saveAsShapes();
@@ -92,6 +95,8 @@ public class PaintFrame extends JFrame
 
 		chooseOpenAsShapes.addActionListener(actionEvent ->
 		{
+			String openAsShapesFile = JOptionPane.showInputDialog("Please enter the file name you would like to open");
+			canvas.setUserFileShapes(SAVE_PAINT_PATH + openAsShapesFile + ".ser");
 			try
 			{
 				canvas.openAsShapes();

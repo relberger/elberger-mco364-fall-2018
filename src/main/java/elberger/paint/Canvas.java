@@ -16,7 +16,8 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	private Tool tool = new PencilTool();
 	private final List<Shape> shapes = new ArrayList<>();
 	private Color color = Color.BLACK;
-	private File file;
+	private File userFilePNG;
+	private String userFileShapes;
 
 	public Canvas()
 	{
@@ -79,19 +80,18 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 			shape.paint(g2d);
 		}
 
-		File filePNG = new File(file.getAbsolutePath() + ".png");
+		File filePNG = new File(userFilePNG.getAbsolutePath() + ".png");
 		ImageIO.write(bufferedImage, "png", filePNG);
 	}
 
-	public void setPNGFile(File file)
+	public void setUserFilePNG(File userFilePNG)
 	{
-		this.file = file;
+		this.userFilePNG = userFilePNG;
 	}
 
 	public void saveAsShapes() throws IOException
 	{
-
-		FileOutputStream fileOutputStream = new FileOutputStream("shapes.ser");
+		FileOutputStream fileOutputStream = new FileOutputStream(userFileShapes);
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
 		objectOutputStream.writeObject(shapes);
@@ -101,14 +101,20 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 
 	public void openAsShapes() throws IOException, ClassNotFoundException
 	{
-		FileInputStream fileInputStream = new FileInputStream("shapes.ser");
+		FileInputStream fileInputStream = new FileInputStream(userFileShapes);
 		ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
 		Object shape = objectInputStream.readObject();
+		shapes.clear();
 		shapes.addAll((List<Shape>) shape);
 		objectInputStream.close();
 
 		repaint();
+	}
+
+	public void setUserFileShapes(String userFileShapes)
+	{
+		this.userFileShapes = userFileShapes;
 	}
 
 	@Override
