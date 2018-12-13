@@ -104,9 +104,9 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 		FileInputStream fileInputStream = new FileInputStream(userFileShapes);
 		ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-		Object shape = objectInputStream.readObject();
+		Object readShapes = objectInputStream.readObject();
 		shapes.clear();
-		shapes.addAll((List<Shape>) shape);
+		shapes.addAll((List<Shape>) readShapes);
 		objectInputStream.close();
 
 		repaint();
@@ -140,24 +140,20 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e)
 	{
-
 	}
 }

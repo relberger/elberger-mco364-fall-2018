@@ -7,15 +7,6 @@ import java.io.IOException;
 public class PaintFrame extends JFrame
 {
 	private Canvas canvas;
-	private JButton chooseColor;
-	private JButton choosePencil;
-	private JButton chooseRectangle;
-	private JButton chooseEraser;
-	private JButton chooseFilledRectangle;
-	private JButton chooseUndo;
-	private JButton chooseSaveAsPNG;
-	private JButton chooseSaveAsShapes;
-	private JButton chooseOpenAsShapes;
 	private Color color;
 	private final String SAVE_PAINT_SHAPES_PATH = "src/main/java/elberger/paint/savedPaintShapes/";
 
@@ -30,15 +21,15 @@ public class PaintFrame extends JFrame
 
 		JPanel buttonPanel = new JPanel();
 
-		chooseColor = new JButton("Choose Color");
-		choosePencil = new JButton("Line");
-		chooseRectangle = new JButton("Rectangle");
-		chooseEraser = new JButton("Eraser");
-		chooseFilledRectangle = new JButton("Filled Rectangle");
-		chooseUndo = new JButton("Undo");
-		chooseSaveAsPNG = new JButton("Save as PNG");
-		chooseSaveAsShapes = new JButton("Save as Shapes");
-		chooseOpenAsShapes = new JButton("Open as Shapes");
+		JButton chooseColor = new JButton("Choose Color");
+		JButton choosePencil = new JButton("Line");
+		JButton chooseRectangle = new JButton("Rectangle");
+		JButton chooseEraser = new JButton("Eraser");
+		JButton chooseFilledRectangle = new JButton("Filled Rectangle");
+		JButton chooseUndo = new JButton("Undo");
+		JButton chooseSaveAsPNG = new JButton("Save as PNG");
+		JButton chooseSaveAsShapes = new JButton("Save as Shapes");
+		JButton chooseOpenAsShapes = new JButton("Open as Shapes");
 
 		buttonPanel.add(chooseColor);
 		buttonPanel.add(choosePencil);
