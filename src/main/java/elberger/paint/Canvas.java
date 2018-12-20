@@ -1,11 +1,13 @@
 package elberger.paint;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,8 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	private Tool tool = new PencilTool();
 	private final List<Shape> shapes = new ArrayList<>();
 	private Color color = Color.BLACK;
+	private File userFilePNG;
+	private String userFileShapes;
 
 	public Canvas()
 	{
@@ -64,6 +68,55 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 		}
 	}
 
+	public void saveAsPNG() throws IOException
+	{
+		BufferedImage bufferedImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = bufferedImage.createGraphics();
+
+		drawCanvas(g2d);
+		for (Shape shape : shapes)
+		{
+			g2d.setColor(shape.getColor());
+			shape.paint(g2d);
+		}
+
+		File filePNG = new File(userFilePNG.getAbsolutePath() + ".png");
+		ImageIO.write(bufferedImage, "png", filePNG);
+	}
+
+	public void setUserFilePNG(File userFilePNG)
+	{
+		this.userFilePNG = userFilePNG;
+	}
+
+	public void saveAsShapes() throws IOException
+	{
+		FileOutputStream fileOutputStream = new FileOutputStream(userFileShapes);
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+		objectOutputStream.writeObject(shapes);
+
+		objectOutputStream.close();
+	}
+
+	public void openAsShapes() throws IOException, ClassNotFoundException
+	{
+		FileInputStream fileInputStream = new FileInputStream(userFileShapes);
+		ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+		Object readShapes = objectInputStream.readObject();
+		shapes.clear();
+		shapes.addAll((List<Shape>) readShapes);
+		objectInputStream.close();
+
+		repaint();
+	}
+
+	public void setUserFileShapes(String userFileShapes)
+	{
+		this.userFileShapes = userFileShapes;
+	}
+
 	@Override
 	public void mouseDragged(MouseEvent event)
 	{
@@ -87,24 +140,20 @@ public class Canvas extends JComponent implements MouseMotionListener, MouseList
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e)
 	{
-
 	}
 }

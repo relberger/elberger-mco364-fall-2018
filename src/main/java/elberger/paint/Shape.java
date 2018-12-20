@@ -1,8 +1,9 @@
 package elberger.paint;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class Shape
+public abstract class Shape implements Serializable
 {
 	private int x;
 	private int y;
