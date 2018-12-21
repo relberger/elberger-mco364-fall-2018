@@ -2,26 +2,18 @@ package elberger.paint;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class PaintFrame extends JFrame
 {
 	private Canvas canvas;
-	private JButton chooseColor;
-	private JButton choosePencil;
-	private JButton chooseRectangle;
-	private JButton chooseEraser;
-	private JButton chooseFilledRectangle;
-	private JButton chooseUndo;
-	private JButton chooseSave;
 	private Color color;
+	private final String SAVE_PAINT_SHAPES_PATH = "src/main/java/elberger/paint/savedPaintShapes/";
 
 	public PaintFrame()
 	{
 		setTitle("Paint");
-		setSize(800, 600);
+		setSize(1200, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
@@ -29,13 +21,16 @@ public class PaintFrame extends JFrame
 
 		JPanel buttonPanel = new JPanel();
 
-		chooseColor = new JButton("Choose Color");
-		choosePencil = new JButton("Line");
-		chooseRectangle = new JButton("Rectangle");
-		chooseEraser = new JButton("Eraser");
-		chooseFilledRectangle = new JButton("Filled Rectangle");
-		chooseUndo = new JButton("Undo");
-		chooseSave = new JButton("Save");
+		JButton chooseColor = new JButton("Choose Color");
+		JButton choosePencil = new JButton("Line");
+		JButton chooseRectangle = new JButton("Rectangle");
+		JButton chooseEraser = new JButton("Eraser");
+		JButton chooseFilledRectangle = new JButton("Filled Rectangle");
+		JButton chooseUndo = new JButton("Undo");
+		JButton chooseSaveAsPNG = new JButton("Save as PNG");
+		JButton chooseSaveAsShapes = new JButton("Save as Shapes");
+		JButton chooseOpenAsShapes = new JButton("Open as Shapes");
+		JButton chooseFill = new JButton("Fill");
 
 		buttonPanel.add(chooseColor);
 		buttonPanel.add(choosePencil);
@@ -43,7 +38,10 @@ public class PaintFrame extends JFrame
 		buttonPanel.add(chooseEraser);
 		buttonPanel.add(chooseFilledRectangle);
 		buttonPanel.add(chooseUndo);
-		buttonPanel.add(chooseSave);
+		buttonPanel.add(chooseSaveAsPNG);
+		buttonPanel.add(chooseSaveAsShapes);
+		buttonPanel.add(chooseOpenAsShapes);
+		buttonPanel.add(chooseFill);
 
 		chooseColor.addActionListener(actionEvent ->
 		{
@@ -61,19 +59,50 @@ public class PaintFrame extends JFrame
 
 		chooseUndo.addActionListener(actionEvent -> canvas.undo());
 
-		chooseSave.addActionListener(actionEvent ->
+		chooseSaveAsPNG.addActionListener(actionEvent ->
 		{
 			try
 			{
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.showSaveDialog(this);
-				canvas.setFile(fileChooser.getSelectedFile());
-				canvas.save();
+				canvas.setUserFilePNG(fileChooser.getSelectedFile());
+				canvas.saveAsPNG();
 			} catch (IOException e)
 			{
 				e.printStackTrace();
 			}
 		});
+
+		chooseSaveAsShapes.addActionListener(actionEvent ->
+		{
+			String saveAsShapesFile = JOptionPane.showInputDialog("Please enter a file name to save.");
+			canvas.setUserFileShapes(SAVE_PAINT_SHAPES_PATH + saveAsShapesFile + ".ser");
+			try
+			{
+				canvas.saveAsShapes();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		});
+
+		chooseOpenAsShapes.addActionListener(actionEvent ->
+		{
+			String openAsShapesFile = JOptionPane.showInputDialog("Please enter the file name you would like to open");
+			canvas.setUserFileShapes(SAVE_PAINT_SHAPES_PATH + openAsShapesFile + ".ser");
+			try
+			{
+				canvas.openAsShapes();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			} catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+		});
+
+		chooseFill.addActionListener(actionEvent -> canvas.setTool(new FillTool(canvas)));
 
 		canvas = new Canvas();
 

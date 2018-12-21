@@ -1,6 +1,7 @@
 package elberger.paint;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Eraser extends Shape
@@ -23,11 +24,12 @@ public class Eraser extends Shape
 	}
 
 	@Override
-	public void paint(Graphics g)
+	public void paint(BufferedImage bufferedImage, Graphics imageGraphics)
 	{
+		super.paint(bufferedImage, imageGraphics);
 		for (Eraser eraser : erasers)
 		{
-			g.fillRect(eraser.getX(), eraser.getY(), 10, 10);
+			imageGraphics.fillRect(eraser.getX(), eraser.getY(), 10, 10);
 		}
 	}
 }

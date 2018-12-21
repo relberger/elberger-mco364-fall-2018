@@ -1,8 +1,12 @@
 package elberger.paint;
 
-import java.awt.*;
+import com.sun.org.apache.xpath.internal.operations.Gt;
 
-public abstract class Shape
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
+
+public abstract class Shape implements Serializable
 {
 	private int x;
 	private int y;
@@ -35,8 +39,8 @@ public abstract class Shape
 		this.color = color;
 	}
 
-	public void paint(Graphics graphics)
+	public void paint(BufferedImage bufferedImage, Graphics imageGraphics)
 	{
-		graphics.setColor(getColor());
+		imageGraphics.setColor(getColor());
 	}
 }

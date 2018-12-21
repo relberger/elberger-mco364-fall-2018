@@ -1,6 +1,7 @@
 package elberger.paint;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Rectangle extends Shape
 {
@@ -97,9 +98,9 @@ public class Rectangle extends Shape
 	}
 
 	@Override
-	public void paint(Graphics g)
+	public void paint(BufferedImage bufferedImage, Graphics imageGraphics)
 	{
-		super.paint(g);
-		g.drawRect(getLeftX(), getTopY(), getWidth(), getHeight());
+		super.paint(bufferedImage, imageGraphics);
+		imageGraphics.drawRect(getLeftX(), getTopY(), getWidth(), getHeight());
 	}
 }
